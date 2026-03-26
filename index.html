@@ -1,118 +1,119 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Ficha Cadastral – CASE Tecnologia</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Ficha Cadastral – CASE Tecnologia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      font-family: Segoe UI, Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      color: #333;
-    }
+<style>
+body {
+  font-family: Segoe UI, Arial, sans-serif;
+  background:#f4f6f8;
+  margin:0;
+  color:#333;
+}
 
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      background: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,.08);
-    }
+.container {
+  max-width:1000px;
+  margin:40px auto;
+  background:#fff;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
 
-    header {
-      padding: 24px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      border-bottom: 1px solid #ddd;
-    }
+header {
+  padding:24px;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid #ddd;
+}
 
-    header img {
-      height: 48px;
-      object-fit: contain;
-    }
+header img {
+  height:40px;
+}
 
-    h1 {
-      font-size: 22px;
-      margin: 0;
-      color: #0b3c5d;
-    }
+header h1 {
+  margin:0;
+  font-size:22px;
+  color:#0b3c5d;
+}
 
-    section {
-      padding: 24px;
-      border-bottom: 1px solid #eee;
-    }
+section {
+  padding:24px;
+  border-bottom:1px solid #eee;
+}
 
-    h2 {
-      font-size: 18px;
-      color: #1f7a8c;
-      margin-bottom: 16px;
-    }
+h2 {
+  font-size:17px;
+  color:#1f7a8c;
+  margin-bottom:16px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+  gap:16px;
+}
 
-    label {
-      font-weight: 600;
-      font-size: 13px;
-      margin-bottom: 4px;
-      display: block;
-    }
+label {
+  display:block;
+  font-size:13px;
+  font-weight:600;
+  margin-bottom:4px;
+}
 
-    input {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
+input {
+  width:100%;
+  padding:10px;
+  border:1px solid #ccc;
+  border-radius:4px;
+  font-size:14px;
+}
 
-    .checkbox {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      font-size: 14px;
-    }
+.checkbox {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+  margin-bottom:12px;
+}
 
-    .lgpd-box {
-      background: #f9fafb;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 16px;
-      margin-bottom: 16px;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+.lgpd-box {
+  background:#f9fafb;
+  border:1px solid #ddd;
+  border-radius:6px;
+  padding:16px;
+  margin-bottom:16px;
+  font-size:14px;
+  line-height:1.6;
+}
 
-    .actions {
-      padding: 24px;
-      text-align: right;
-      background: #fafafa;
-    }
+.actions {
+  padding:24px;
+  text-align:right;
+  background:#fafafa;
+}
 
-    button {
-      background: #0b3c5d;
-      color: #fff;
-      border: none;
-      padding: 14px 28px;
-      font-size: 15px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+button {
+  padding:12px 28px;
+  font-size:15px;
+  border:none;
+  border-radius:4px;
+  background:#0b3c5d;
+  color:#fff;
+  cursor:pointer;
+}
 
-    button:hover {
-      background: #1f7a8c;
-    }
-  </style>
+button:hover {
+  background:#1f7a8c;
+}
+</style>
 </head>
 
 <body>
 <div class="container">
+
 <header>
   <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
   <h1>Ficha Cadastral</h1>
@@ -120,89 +121,79 @@
 
 <form id="cadastroForm">
 
-<!-- DADOS EMPRESA -->
 <section>
 <h2>Dados da Empresa</h2>
 <div class="grid">
-<inputField label="Razão Social / Nome" name="razaoSocial" required>
-<inputField label="CNPJ / CPF" name="cnpjCpf" id="cnpjCpf" required>
-<inputField label="Inscrição Estadual" name="inscricaoEstadual">
-<inputField label="Nome Fantasia" name="nomeFantasia">
-<inputField label="Atividade Econômica Principal" name="atividadeEconomica">
-<inputField label="Telefones" name="telefones" class="telefone">
-<inputField label="Domínio / Site" name="dominioEmpresa">
+  <div><label>Razão Social / Nome</label><input name="razaoSocial" required></div>
+  <div><label>CNPJ / CPF</label><input name="cnpjCpf" id="cnpjCpf" required></div>
+  <div><label>Inscrição Estadual</label><input name="inscricaoEstadual"></div>
+  <div><label>Nome Fantasia</label><input name="nomeFantasia"></div>
+  <div><label>Atividade Econômica Principal</label><input name="atividadeEconomica"></div>
+  <div><label>Telefones</label><input name="telefones" class="telefone"></div>
+  <div><label>Domínio / Site</label><input name="dominioEmpresa"></div>
 </div>
 </section>
 
-<!-- ENDEREÇO -->
 <section>
 <h2>Endereço</h2>
 <div class="grid">
-<inputField label="Endereço" name="endereco">
-<inputField label="Número" name="numero">
-<inputField label="Complemento" name="complemento">
-<inputField label="Bairro" name="bairro">
-<inputField label="Cidade" name="cidade">
-<inputField label="Estado" name="estado">
-<inputField label="CEP" name="cep">
-<inputField label="País" name="pais" value="Brasil">
+  <div><label>Endereço</label><input name="endereco"></div>
+  <div><label>Número</label><input name="numero"></div>
+  <div><label>Complemento</label><input name="complemento"></div>
+  <div><label>Bairro</label><input name="bairro"></div>
+  <div><label>Cidade</label><input name="cidade"></div>
+  <div><label>Estado</label><input name="estado"></div>
+  <div><label>CEP</label><input name="cep"></div>
+  <div><label>País</label><input name="pais" value="Brasil"></div>
 </div>
 </section>
 
-<!-- ADMIN -->
 <section>
 <h2>Responsável Administrativo / Legal</h2>
 <div class="grid">
-<inputField label="Nome Completo" name="adminNome">
-<inputField label="CPF" name="adminCpf" id="adminCpf">
-<inputField label="Data de Nascimento" type="date" name="adminNascimento">
-<inputField label="RG" name="adminRg">
-<inputField label="E-mail" name="adminEmail">
-<inputField label="Celular" name="adminCelular" class="telefone">
-<inputField label="Telefone Fixo" name="adminTelefoneFixo" class="telefone">
+  <div><label>Nome Completo</label><input name="adminNome"></div>
+  <div><label>CPF</label><input name="adminCpf" id="adminCpf"></div>
+  <div><label>Data de Nascimento</label><input type="date" name="adminNascimento"></div>
+  <div><label>RG</label><input name="adminRg"></div>
+  <div><label>E-mail</label><input name="adminEmail"></div>
+  <div><label>Celular</label><input name="adminCelular" class="telefone"></div>
+  <div><label>Telefone Fixo</label><input name="adminTelefoneFixo" class="telefone"></div>
 </div>
 </section>
 
-<!-- TÉCNICO -->
 <section>
 <h2>Responsável Técnico</h2>
 <label class="checkbox">
-<input type="checkbox" id="tecnicoIgualAdmin">
-Responsável Técnico é o mesmo do Administrativo
+<input type="checkbox" id="tecnicoIgualAdmin"> Responsável Técnico é o mesmo do Administrativo
 </label>
-<div class="grid" id="tecnicoCampos">
-<inputField label="Nome Completo" name="tecnicoNome">
-<inputField label="E-mail" name="tecnicoEmail">
-<inputField label="Celular" name="tecnicoCelular" class="telefone">
-<inputField label="Telefone Fixo" name="tecnicoTelefoneFixo" class="telefone">
+<div class="grid" id="blocoTecnico">
+  <div><label>Nome Completo</label><input name="tecnicoNome"></div>
+  <div><label>E-mail</label><input name="tecnicoEmail"></div>
+  <div><label>Celular</label><input name="tecnicoCelular" class="telefone"></div>
+  <div><label>Telefone Fixo</label><input name="tecnicoTelefoneFixo" class="telefone"></div>
 </div>
 </section>
 
-<!-- COBRANÇA -->
 <section>
 <h2>Responsável pela Cobrança</h2>
 <label class="checkbox">
-<input type="checkbox" id="cobrancaIgualAdmin">
-Responsável pela Cobrança é o mesmo do Administrativo
+<input type="checkbox" id="cobrancaIgualAdmin"> Responsável pela Cobrança é o mesmo do Administrativo
 </label>
-<div class="grid" id="cobrancaCampos">
-<inputField label="Nome Completo" name="cobrancaNome">
-<inputField label="E-mail" name="cobrancaEmail">
-<inputField label="Celular" name="cobrancaCelular" class="telefone">
-<inputField label="Telefone Fixo" name="cobrancaTelefoneFixo" class="telefone">
+<div class="grid" id="blocoCobranca">
+  <div><label>Nome Completo</label><input name="cobrancaNome"></div>
+  <div><label>E-mail</label><input name="cobrancaEmail"></div>
+  <div><label>Celular</label><input name="cobrancaCelular" class="telefone"></div>
+  <div><label>Telefone Fixo</label><input name="cobrancaTelefoneFixo" class="telefone"></div>
 </div>
 </section>
 
-<!-- LGPD -->
 <section>
 <h2>Consentimento LGPD</h2>
 <div class="lgpd-box">
-<p>Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (LGPD)...</p>
-<p>O tratamento ocorrerá pela CASE Tecnologia para fins contratuais e de contato.</p>
+Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo com a Lei nº 13.709/18 (LGPD), que os dados pessoais serão tratados pela CASE Tecnologia para fins contratuais e de contato.
 </div>
 <label class="checkbox">
-<input type="checkbox" required name="lgpdConsentimento">
-Declaro que li e concordo com o tratamento dos dados.
+<input type="checkbox" required> Declaro que li e concordo com o tratamento dos dados.
 </label>
 </section>
 
@@ -214,42 +205,34 @@ Declaro que li e concordo com o tratamento dos dados.
 </div>
 
 <script>
-function copiarAdmin(destino) {
- ['Nome','Email','Celular','TelefoneFixo'].forEach(c=>{
+function copiarAdmin(prefixo){
+ ["Nome","Email","Celular","TelefoneFixo"].forEach(c=>{
   const a=document.querySelector('[name="admin'+c+'"]');
-  const d=document.querySelector('[name="'+destino+c+'"]');
+  const d=document.querySelector('[name="'+prefixo+c+'"]');
   if(a&&d)d.value=a.value;
-});
+ });
 }
 
 document.getElementById("tecnicoIgualAdmin").onchange=e=>{
- document.getElementById("tecnicoCampos").style.display =
- e.target.checked?(copiarAdmin("tecnico"),"none"):"grid";
+ document.getElementById("blocoTecnico").style.display=e.target.checked?(copiarAdmin("tecnico"),"none"):"grid";
 };
 document.getElementById("cobrancaIgualAdmin").onchange=e=>{
- document.getElementById("cobrancaCampos").style.display =
- e.target.checked?(copiarAdmin("cobranca"),"none"):"grid";
+ document.getElementById("blocoCobranca").style.display=e.target.checked?(copiarAdmin("cobranca"),"none"):"grid";
 };
 
-function maskTel(i){
- i.oninput=()=>{let v=i.value.replace(/\D/g,'').slice(0,11);
+document.querySelectorAll(".telefone").forEach(i=>{
+ i.oninput=()=>{let v=i.value.replace(/\D/g,"").slice(0,11);
  i.value=v.length>=11?`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`:
  v.length>=10?`(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`:v;}
-}
-document.querySelectorAll('.telefone').forEach(maskTel);
+});
 
 document.getElementById("adminCpf").oninput=e=>{
- let v=e.target.value.replace(/\D/g,'').slice(0,11);
- e.target.value=v.replace(/(\d{3})(\d)/,'$1.$2')
- .replace(/(\d{3})(\d)/,'$1.$2')
- .replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+ let v=e.target.value.replace(/\D/g,"").slice(0,11);
+ e.target.value=v.replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d)/,"$1.$2").replace(/(\d{3})(\d{1,2})$/,"$1-$2");
 };
 document.getElementById("cnpjCpf").oninput=e=>{
- let v=e.target.value.replace(/\D/g,'').slice(0,14);
- e.target.value=v.replace(/^(\d{2})(\d)/,'$1.$2')
- .replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3')
- .replace(/\.(\d{3})(\d)/,'.$1/$2')
- .replace(/(\d{4})(\d)/,'$1-$2');
+ let v=e.target.value.replace(/\D/g,"").slice(0,14);
+ e.target.value=v.replace(/^(\d{2})(\d)/,"$1.$2").replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3").replace(/\.(\d{3})(\d)/,".$1/$2").replace(/(\d{4})(\d)/,"$1-$2");
 };
 
 document.getElementById("cadastroForm").onsubmit=e=>{
@@ -260,4 +243,3 @@ document.getElementById("cadastroForm").onsubmit=e=>{
 
 </body>
 </html>
-``
