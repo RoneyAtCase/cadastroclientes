@@ -3,20 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <title>FICHA CADASTRAL – CASE TECNOLOGIA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root {
+  --bg-main: #f2f4f7;
+  --bg-section-a: #ffffff;
+  --bg-section-b: #f7f8fa;
+  --border: #dcdfe4;
+  --primary: #0b3c5d;
+  --secondary: #1f7a8c;
+}
+
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #f2f4f7;
   margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg-main);
   color: #333;
 }
 
 .container {
   max-width: 1000px;
   margin: 40px auto;
-  background: #ffffff;
+  background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,.08);
   overflow: hidden;
@@ -24,47 +33,45 @@ body {
 
 /* ===== HEADER ===== */
 header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
   padding: 24px;
-  border-bottom: 1px solid #ddd;
-  position: relative;
+  border-bottom: 1px solid var(--border);
 }
 
 header img {
-  height: 52px;
+  height: 56px;
 }
 
 header h1 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  text-align: center;
   margin: 0;
   font-size: 22px;
   letter-spacing: 1px;
-  color: #0b3c5d;
+  color: var(--primary);
 }
 
 /* ===== SECTIONS ===== */
 section {
-  padding: 22px 24px;
-  background: #f9fafb;
-  border-bottom: 1px solid #e3e6ea;
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
 }
 
-section:nth-child(even) {
-  background: #f3f5f7;
-}
+section.section-a { background: var(--bg-section-a); }
+section.section-b { background: var(--bg-section-b); }
 
 h2 {
+  margin: 0 0 16px 0;
   font-size: 16px;
-  color: #1f7a8c;
-  margin-bottom: 14px;
+  color: var(--secondary);
 }
 
 /* ===== GRID ===== */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 @media (max-width: 900px) {
@@ -73,39 +80,39 @@ h2 {
   }
 }
 
-/* ===== FIELDS ===== */
+/* ===== FORM FIELDS ===== */
 label {
+  display: block;
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 4px;
-  display: block;
 }
 
 input {
   width: 100%;
-  padding: 9px;
+  padding: 10px;
   font-size: 14px;
   border: 1px solid #cfd4da;
   border-radius: 4px;
 }
 
-/* ===== CHECKBOX ROW ===== */
-.checkbox-row {
-  display: flex;
+/* ===== CHECKBOX ===== */
+.checkbox-inline {
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin: 10px 0 16px 0;
+  margin: 10px 0 18px 0;
   font-size: 14px;
 }
 
-.checkbox-row input {
+.checkbox-inline input {
   margin: 0;
 }
 
 /* ===== LGPD ===== */
 .lgpd-box {
   background: #ffffff;
-  border: 1px solid #d5d9de;
+  border: 1px solid var(--border);
   border-radius: 6px;
   padding: 16px;
   font-size: 14px;
@@ -116,22 +123,22 @@ input {
 /* ===== ACTIONS ===== */
 .actions {
   padding: 20px 24px;
-  background: #f0f2f5;
+  background: #eef1f5;
   text-align: right;
 }
 
 button {
-  background: #0b3c5d;
+  background: var(--primary);
   color: #fff;
   border: none;
   padding: 12px 28px;
-  border-radius: 4px;
   font-size: 14px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #1f7a8c;
+  background: var(--secondary);
 }
 </style>
 </head>
@@ -140,13 +147,14 @@ button:hover {
 <div class="container">
 
 <header>
-  https://www.casetecnologia.com.br/logo-h-w.png
+  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
   <h1>FICHA CADASTRAL</h1>
+  <div></div>
 </header>
 
 <form>
 
-<section>
+<section class="section-a">
 <h2>Dados da Empresa</h2>
 <div class="grid">
   <div><label>Razão Social / Nome *</label><input required></div>
@@ -159,7 +167,7 @@ button:hover {
 </div>
 </section>
 
-<section>
+<section class="section-b">
 <h2>Endereço</h2>
 <div class="grid">
   <div><label>Endereço *</label><input required></div>
@@ -173,7 +181,7 @@ button:hover {
 </div>
 </section>
 
-<section>
+<section class="section-a">
 <h2>Responsável Administrativo / Legal</h2>
 <div class="grid">
   <div><label>Nome Completo *</label><input required></div>
@@ -186,12 +194,12 @@ button:hover {
 </div>
 </section>
 
-<section>
+<section class="section-b">
 <h2>Responsável Técnico</h2>
-<div class="checkbox-row">
+<label class="checkbox-inline">
   <input type="checkbox">
-  <span>Responsável Técnico é o mesmo do Responsável Administrativo</span>
-</div>
+  Responsável Técnico é o mesmo do Responsável Administrativo
+</label>
 <div class="grid">
   <div><label>Nome Completo</label><input></div>
   <div><label>E-mail</label><input></div>
@@ -199,12 +207,12 @@ button:hover {
 </div>
 </section>
 
-<section>
+<section class="section-a">
 <h2>Responsável pela Cobrança</h2>
-<div class="checkbox-row">
+<label class="checkbox-inline">
   <input type="checkbox">
-  <span>Responsável pela Cobrança é o mesmo do Responsável Administrativo</span>
-</div>
+  Responsável pela Cobrança é o mesmo do Responsável Administrativo
+</label>
 <div class="grid">
   <div><label>Nome Completo</label><input></div>
   <div><label>E-mail</label><input></div>
@@ -212,15 +220,15 @@ button:hover {
 </div>
 </section>
 
-<section>
+<section class="section-b">
 <h2>Consentimento LGPD</h2>
 
 <div class="lgpd-box">
   <p>
     Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
     nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
-    aqui constantes serão tratados, pela CASE Tecnologia, com a finalidade de elaboração
-    dos Contratos e eventuais contatos necessários.
+    aqui constantes serão tratados, pela <strong>CASE Tecnologia</strong>, com a finalidade
+    de elaboração dos Contratos e eventuais contatos necessários.
   </p>
   <p>
     A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes,
@@ -234,10 +242,10 @@ button:hover {
   </p>
 </div>
 
-<div class="checkbox-row">
+<label class="checkbox-inline">
   <input type="checkbox" required>
-  <span>Declaro que li, compreendi e concordo com o tratamento dos dados pessoais nos termos acima.</span>
-</div>
+  Declaro que li, compreendi e concordo com o tratamento dos dados pessoais nos termos acima.
+</label>
 </section>
 
 <div class="actions">
