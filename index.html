@@ -7,111 +7,107 @@
 
 <style>
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: Segoe UI, Arial, sans-serif;
   background:#f4f6f8;
   margin:0;
   color:#333;
 }
 
 .container {
-  max-width:1000px;
+  max-width:960px;
   margin:40px auto;
   background:#fff;
   border-radius:8px;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  box-shadow:0 4px 10px rgba(0,0,0,.08);
 }
 
 header {
-  padding:24px;
+  padding:20px;
+  border-bottom:1px solid #ddd;
   display:flex;
   align-items:center;
-  gap:20px;
-  border-bottom:1px solid #e0e0e0;
+  gap:16px;
 }
 
-header img {
-  height:42px;
-}
+header img { height:40px; }
 
 header h1 {
+  font-size:20px;
   margin:0;
-  font-size:22px;
   color:#0b3c5d;
 }
 
 section {
-  padding:24px;
+  padding:20px;
   border-bottom:1px solid #eee;
 }
 
 h2 {
-  font-size:18px;
+  font-size:16px;
   color:#1f7a8c;
-  margin-bottom:12px;
+  margin-bottom:14px;
 }
 
 .grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+@media (max-width:800px) {
+  .grid { grid-template-columns:1fr; }
 }
 
 label {
-  display:block;
   font-size:13px;
   font-weight:600;
   margin-bottom:4px;
+  display:block;
 }
 
 input {
   width:100%;
-  padding:10px;
+  padding:9px;
+  font-size:14px;
   border:1px solid #ccc;
   border-radius:4px;
-  font-size:14px;
 }
 
-.checkbox-inline {
+.checkbox-line {
   display:flex;
   align-items:flex-start;
-  gap:10px;
-  margin:12px 0 20px 0;
+  gap:8px;
+  margin:10px 0;
   font-size:14px;
-}
-
-.checkbox-inline input {
-  margin-top:3px;
 }
 
 .lgpd-box {
-  background:#f9fafb;
   border:1px solid #ddd;
+  background:#fafafa;
+  padding:14px;
   border-radius:6px;
-  padding:16px;
-  margin-bottom:16px;
   font-size:14px;
   line-height:1.6;
+  margin-bottom:10px;
 }
 
 .actions {
-  padding:24px;
+  padding:20px;
   text-align:right;
   background:#fafafa;
 }
 
 button {
-  padding:12px 30px;
-  font-size:15px;
-  border:none;
-  border-radius:4px;
   background:#0b3c5d;
   color:#fff;
+  border:none;
+  padding:12px 26px;
+  border-radius:4px;
+  font-size:14px;
   cursor:pointer;
 }
 
-button:hover {
-  background:#1f7a8c;
-}
+button:hover { background:#1f7a8c; }
 </style>
 </head>
 
@@ -119,16 +115,106 @@ button:hover {
 <div class="container">
 
 <header>
-  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
+  https://www.casetecnologia.com.br/logo-h-w.png
   <h1>Ficha Cadastral</h1>
 </header>
 
 <form id="cadastroForm">
 
-<!-- DADOS DA EMPRESA -->
 <section>
 <h2>Dados da Empresa</h2>
 <div class="grid">
-  <div><label>Razão Social / Nome</label><input name="razaoSocial" required></div>
-  <div><label>CNPJ / CPF</label><input name="cnpjCpf" id="cnpjCpf" required></div>
-  <div><label>Inscrição Estadual</label><input name="inscricaoEstadual"></div>
+  <div><label>Razão Social / Nome *</label><input required></div>
+  <div><label>CNPJ / CPF *</label><input required></div>
+  <div><label>Inscrição Estadual</label><input></div>
+  <div><label>Nome Fantasia *</label><input required></div>
+  <div><label>Atividade Econômica</label><input></div>
+  <div><label>Telefones *</label><input required></div>
+  <div><label>Domínio / Site</label><input></div>
+</div>
+</section>
+
+<section>
+<h2>Endereço</h2>
+<div class="grid">
+  <div><label>Endereço *</label><input required></div>
+  <div><label>Número *</label><input required></div>
+  <div><label>Complemento</label><input></div>
+  <div><label>Bairro *</label><input required></div>
+  <div><label>Cidade *</label><input required></div>
+  <div><label>Estado *</label><input required></div>
+  <div><label>CEP *</label><input required></div>
+  <div><label>País *</label><input value="Brasil" required></div>
+</div>
+</section>
+
+<section>
+<h2>Responsável Administrativo / Legal</h2>
+<div class="grid">
+  <div><label>Nome Completo *</label><input required></div>
+  <div><label>CPF *</label><input required></div>
+  <div><label>Data de Nascimento</label><input type="date"></div>
+  <div><label>RG</label><input></div>
+  <div><label>E-mail *</label><input type="email" required></div>
+  <div><label>Celular *</label><input required></div>
+  <div><label>Telefone Fixo</label><input></div>
+</div>
+</section>
+
+<section>
+<h2>Responsável Técnico</h2>
+<div class="checkbox-line">
+<input type="checkbox"> <span>Mesmo do Administrativo</span>
+</div>
+<div class="grid">
+  <div><label>Nome</label><input></div>
+  <div><label>E-mail</label><input></div>
+  <div><label>Celular</label><input></div>
+</div>
+</section>
+
+<section>
+<h2>Responsável pela Cobrança</h2>
+<div class="checkbox-line">
+<input type="checkbox"> <span>Mesmo do Administrativo</span>
+</div>
+<div class="grid">
+  <div><label>Nome</label><input></div>
+  <div><label>E-mail</label><input></div>
+  <div><label>Celular</label><input></div>
+</div>
+</section>
+
+<section>
+<h2>Consentimento LGPD</h2>
+<div class="lgpd-box">
+Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (LGPD), que os dados pessoais serão tratados pela CASE Tecnologia para elaboração de contratos e contatos necessários. O titular poderá solicitar acesso, correção ou exclusão de seus dados.
+</div>
+
+<div class="checkbox-line">
+<input type="checkbox" required>
+<span>Declaro que li e concordo com o tratamento dos dados.</span>
+</div>
+</section>
+
+<div class="actions">
+<button type="submit">Enviar Cadastro</button>
+</div>
+
+</form>
+</div>
+
+<script>
+document.getElementById("cadastroForm").onsubmit=e=>{
+  if(!e.target.checkValidity()){
+    alert("Preencha os campos obrigatórios.");
+    return;
+  }
+  e.preventDefault();
+  alert("Cadastro enviado com sucesso.");
+};
+</script>
+
+</body>
+</html>
+``
