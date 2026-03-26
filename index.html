@@ -2,115 +2,136 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Ficha Cadastral – CASE Tecnologia</title>
+<title>FICHA CADASTRAL – CASE TECNOLOGIA</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 body {
   font-family: "Segoe UI", Arial, sans-serif;
-  background:#f4f6f8;
-  margin:0;
-  color:#333;
+  background: #f2f4f7;
+  margin: 0;
+  color: #333;
 }
 
 .container {
-  max-width:960px;
-  margin:40px auto;
-  background:#fff;
-  border-radius:8px;
-  box-shadow:0 4px 10px rgba(0,0,0,.08);
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  overflow: hidden;
 }
 
+/* ===== HEADER ===== */
 header {
-  padding:20px 24px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  border-bottom:1px solid #e0e0e0;
+  padding: 24px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
 }
 
 header img {
-  height:38px;
+  height: 52px;
 }
 
 header h1 {
-  font-size:20px;
-  margin:0;
-  color:#0b3c5d;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #0b3c5d;
 }
 
+/* ===== SECTIONS ===== */
 section {
-  padding:20px 24px;
-  border-bottom:1px solid #eee;
+  padding: 22px 24px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e3e6ea;
+}
+
+section:nth-child(even) {
+  background: #f3f5f7;
 }
 
 h2 {
-  font-size:16px;
-  color:#1f7a8c;
-  margin:0 0 14px 0;
+  font-size: 16px;
+  color: #1f7a8c;
+  margin-bottom: 14px;
 }
 
+/* ===== GRID ===== */
 .grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
 }
 
-@media (max-width:800px) {
-  .grid { grid-template-columns:1fr; }
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }
 
+/* ===== FIELDS ===== */
 label {
-  font-size:13px;
-  font-weight:600;
-  display:block;
-  margin-bottom:4px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: block;
 }
 
 input {
-  width:100%;
-  padding:9px;
-  font-size:14px;
-  border:1px solid #ccc;
-  border-radius:4px;
+  width: 100%;
+  padding: 9px;
+  font-size: 14px;
+  border: 1px solid #cfd4da;
+  border-radius: 4px;
 }
 
+/* ===== CHECKBOX ROW ===== */
 .checkbox-row {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:10px 0 16px 0;
-  font-size:14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0 16px 0;
+  font-size: 14px;
 }
 
+.checkbox-row input {
+  margin: 0;
+}
+
+/* ===== LGPD ===== */
 .lgpd-box {
-  background:#fafafa;
-  border:1px solid #ddd;
-  border-radius:6px;
-  padding:16px;
-  font-size:14px;
-  line-height:1.6;
-  margin-bottom:14px;
+  background: #ffffff;
+  border: 1px solid #d5d9de;
+  border-radius: 6px;
+  padding: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 
+/* ===== ACTIONS ===== */
 .actions {
-  padding:20px 24px;
-  text-align:right;
-  background:#fafafa;
+  padding: 20px 24px;
+  background: #f0f2f5;
+  text-align: right;
 }
 
 button {
-  background:#0b3c5d;
-  color:#fff;
-  border:none;
-  padding:12px 26px;
-  border-radius:4px;
-  font-size:14px;
-  cursor:pointer;
+  background: #0b3c5d;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 button:hover {
-  background:#1f7a8c;
+  background: #1f7a8c;
 }
 </style>
 </head>
@@ -119,13 +140,12 @@ button:hover {
 <div class="container">
 
 <header>
-  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
-  <h1>Ficha Cadastral</h1>
+  https://www.casetecnologia.com.br/logo-h-w.png
+  <h1>FICHA CADASTRAL</h1>
 </header>
 
-<form id="cadastroForm">
+<form>
 
-<!-- DADOS DA EMPRESA -->
 <section>
 <h2>Dados da Empresa</h2>
 <div class="grid">
@@ -139,7 +159,6 @@ button:hover {
 </div>
 </section>
 
-<!-- ENDEREÇO -->
 <section>
 <h2>Endereço</h2>
 <div class="grid">
@@ -154,7 +173,6 @@ button:hover {
 </div>
 </section>
 
-<!-- ADMIN -->
 <section>
 <h2>Responsável Administrativo / Legal</h2>
 <div class="grid">
@@ -168,7 +186,6 @@ button:hover {
 </div>
 </section>
 
-<!-- TÉCNICO -->
 <section>
 <h2>Responsável Técnico</h2>
 <div class="checkbox-row">
@@ -182,7 +199,6 @@ button:hover {
 </div>
 </section>
 
-<!-- COBRANÇA -->
 <section>
 <h2>Responsável pela Cobrança</h2>
 <div class="checkbox-row">
@@ -196,7 +212,6 @@ button:hover {
 </div>
 </section>
 
-<!-- LGPD -->
 <section>
 <h2>Consentimento LGPD</h2>
 
@@ -204,8 +219,8 @@ button:hover {
   <p>
     Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
     nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
-    aqui constantes serão tratados, pela <strong>CASE Tecnologia</strong>, com a finalidade
-    de elaboração dos Contratos e eventuais contatos necessários.
+    aqui constantes serão tratados, pela CASE Tecnologia, com a finalidade de elaboração
+    dos Contratos e eventuais contatos necessários.
   </p>
   <p>
     A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes,
@@ -226,23 +241,10 @@ button:hover {
 </section>
 
 <div class="actions">
-<button type="submit">Enviar Cadastro</button>
+  <button type="submit">Enviar Cadastro</button>
 </div>
 
 </form>
 </div>
-
-<script>
-document.getElementById("cadastroForm").onsubmit = function(e){
-  if(!this.checkValidity()){
-    alert("Preencha todos os campos obrigatórios.");
-    return;
-  }
-  e.preventDefault();
-  alert("Cadastro enviado com sucesso.");
-};
-</script>
-
 </body>
 </html>
-``
