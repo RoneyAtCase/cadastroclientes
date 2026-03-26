@@ -7,7 +7,7 @@
 
 <style>
 body {
-  font-family: Segoe UI, Arial, sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
   background:#f4f6f8;
   margin:0;
   color:#333;
@@ -22,14 +22,16 @@ body {
 }
 
 header {
-  padding:20px;
-  border-bottom:1px solid #ddd;
+  padding:20px 24px;
   display:flex;
   align-items:center;
   gap:16px;
+  border-bottom:1px solid #e0e0e0;
 }
 
-header img { height:40px; }
+header img {
+  height:38px;
+}
 
 header h1 {
   font-size:20px;
@@ -38,14 +40,14 @@ header h1 {
 }
 
 section {
-  padding:20px;
+  padding:20px 24px;
   border-bottom:1px solid #eee;
 }
 
 h2 {
   font-size:16px;
   color:#1f7a8c;
-  margin-bottom:14px;
+  margin:0 0 14px 0;
 }
 
 .grid {
@@ -61,8 +63,8 @@ h2 {
 label {
   font-size:13px;
   font-weight:600;
-  margin-bottom:4px;
   display:block;
+  margin-bottom:4px;
 }
 
 input {
@@ -73,26 +75,26 @@ input {
   border-radius:4px;
 }
 
-.checkbox-line {
+.checkbox-row {
   display:flex;
-  align-items:flex-start;
-  gap:8px;
-  margin:10px 0;
+  align-items:center;
+  gap:10px;
+  margin:10px 0 16px 0;
   font-size:14px;
 }
 
 .lgpd-box {
-  border:1px solid #ddd;
   background:#fafafa;
-  padding:14px;
+  border:1px solid #ddd;
   border-radius:6px;
+  padding:16px;
   font-size:14px;
   line-height:1.6;
-  margin-bottom:10px;
+  margin-bottom:14px;
 }
 
 .actions {
-  padding:20px;
+  padding:20px 24px;
   text-align:right;
   background:#fafafa;
 }
@@ -107,7 +109,9 @@ button {
   cursor:pointer;
 }
 
-button:hover { background:#1f7a8c; }
+button:hover {
+  background:#1f7a8c;
+}
 </style>
 </head>
 
@@ -115,12 +119,13 @@ button:hover { background:#1f7a8c; }
 <div class="container">
 
 <header>
-  https://www.casetecnologia.com.br/logo-h-w.png
+  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
   <h1>Ficha Cadastral</h1>
 </header>
 
 <form id="cadastroForm">
 
+<!-- DADOS DA EMPRESA -->
 <section>
 <h2>Dados da Empresa</h2>
 <div class="grid">
@@ -128,12 +133,13 @@ button:hover { background:#1f7a8c; }
   <div><label>CNPJ / CPF *</label><input required></div>
   <div><label>Inscrição Estadual</label><input></div>
   <div><label>Nome Fantasia *</label><input required></div>
-  <div><label>Atividade Econômica</label><input></div>
+  <div><label>Atividade Econômica Principal</label><input></div>
   <div><label>Telefones *</label><input required></div>
   <div><label>Domínio / Site</label><input></div>
 </div>
 </section>
 
+<!-- ENDEREÇO -->
 <section>
 <h2>Endereço</h2>
 <div class="grid">
@@ -148,6 +154,7 @@ button:hover { background:#1f7a8c; }
 </div>
 </section>
 
+<!-- ADMIN -->
 <section>
 <h2>Responsável Administrativo / Legal</h2>
 <div class="grid">
@@ -161,39 +168,60 @@ button:hover { background:#1f7a8c; }
 </div>
 </section>
 
+<!-- TÉCNICO -->
 <section>
 <h2>Responsável Técnico</h2>
-<div class="checkbox-line">
-<input type="checkbox"> <span>Mesmo do Administrativo</span>
+<div class="checkbox-row">
+  <input type="checkbox">
+  <span>Responsável Técnico é o mesmo do Responsável Administrativo</span>
 </div>
 <div class="grid">
-  <div><label>Nome</label><input></div>
+  <div><label>Nome Completo</label><input></div>
   <div><label>E-mail</label><input></div>
   <div><label>Celular</label><input></div>
 </div>
 </section>
 
+<!-- COBRANÇA -->
 <section>
 <h2>Responsável pela Cobrança</h2>
-<div class="checkbox-line">
-<input type="checkbox"> <span>Mesmo do Administrativo</span>
+<div class="checkbox-row">
+  <input type="checkbox">
+  <span>Responsável pela Cobrança é o mesmo do Responsável Administrativo</span>
 </div>
 <div class="grid">
-  <div><label>Nome</label><input></div>
+  <div><label>Nome Completo</label><input></div>
   <div><label>E-mail</label><input></div>
   <div><label>Celular</label><input></div>
 </div>
 </section>
 
+<!-- LGPD -->
 <section>
 <h2>Consentimento LGPD</h2>
+
 <div class="lgpd-box">
-Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (LGPD), que os dados pessoais serão tratados pela CASE Tecnologia para elaboração de contratos e contatos necessários. O titular poderá solicitar acesso, correção ou exclusão de seus dados.
+  <p>
+    Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
+    nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
+    aqui constantes serão tratados, pela <strong>CASE Tecnologia</strong>, com a finalidade
+    de elaboração dos Contratos e eventuais contatos necessários.
+  </p>
+  <p>
+    A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes,
+    bem como dos períodos previstos pela legislação brasileira, sendo que o Usuário/Cliente
+    poderá solicitar, a qualquer momento, o acesso aos seus dados que estão sob poder da
+    CASE Tecnologia, bem como a retificação, complementação, anonimização, bloqueio ou exclusão.
+  </p>
+  <p>
+    Maiores informações acerca da política de proteção de dados podem ser encontradas na
+    Política de Privacidade constante no site da CASE Tecnologia.
+  </p>
 </div>
 
-<div class="checkbox-line">
-<input type="checkbox" required>
-<span>Declaro que li e concordo com o tratamento dos dados.</span>
+<div class="checkbox-row">
+  <input type="checkbox" required>
+  <span>Declaro que li, compreendi e concordo com o tratamento dos dados pessoais nos termos acima.</span>
 </div>
 </section>
 
@@ -205,9 +233,9 @@ Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de
 </div>
 
 <script>
-document.getElementById("cadastroForm").onsubmit=e=>{
-  if(!e.target.checkValidity()){
-    alert("Preencha os campos obrigatórios.");
+document.getElementById("cadastroForm").onsubmit = function(e){
+  if(!this.checkValidity()){
+    alert("Preencha todos os campos obrigatórios.");
     return;
   }
   e.preventDefault();
