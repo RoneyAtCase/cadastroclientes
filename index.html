@@ -22,7 +22,7 @@
     }
 
     .container {
-      max-width: 960px;
+      max-width: 980px;
       margin: 40px auto;
       background: #fff;
       border-radius: 8px;
@@ -35,7 +35,7 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 20px;
     }
 
     header img {
@@ -45,7 +45,7 @@
     }
 
     header h1 {
-      font-size: 20px;
+      font-size: 22px;
       margin: 0;
       color: var(--primary);
     }
@@ -67,7 +67,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
       gap: 16px;
     }
 
@@ -88,8 +88,8 @@
 
     .checkbox {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 10px;
       font-size: 14px;
     }
 
@@ -103,7 +103,7 @@
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 12px 24px;
+      padding: 12px 28px;
       font-size: 15px;
       border-radius: 4px;
       cursor: pointer;
@@ -111,6 +111,16 @@
 
     button:hover {
       background: var(--secondary);
+    }
+
+    .lgpd-box {
+      background:#f9fafb;
+      border:1px solid #e0e0e0;
+      border-radius:6px;
+      padding:16px;
+      font-size:14px;
+      line-height:1.6;
+      margin-bottom:16px;
     }
 
     @media (max-width: 600px) {
@@ -131,32 +141,21 @@
 
     <form id="cadastroForm">
 
+      <!-- Dados da Empresa -->
       <section>
         <h2>Dados da Empresa</h2>
         <div class="grid">
-          <div>
-            <label>Razão Social / Nome</label>
-            <input name="razaoSocial" required>
-          </div>
-          <div>
-            <label>CNPJ / CPF</label>
-            <input name="cnpjCpf" required>
-          </div>
-          <div>
-            <label>Inscrição Estadual</label>
-            <input name="inscricaoEstadual">
-          </div>
-          <div>
-            <label>Nome Fantasia</label>
-            <input name="nomeFantasia">
-          </div>
-          <div>
-            <label>Atividade Econômica Principal</label>
-            <input name="atividadeEconomica">
-          </div>
+          <div><label>Razão Social / Nome</label><input name="razaoSocial" required></div>
+          <div><label>CNPJ / CPF</label><input name="cnpjCpf" required></div>
+          <div><label>Inscrição Estadual</label><input name="inscricaoEstadual"></div>
+          <div><label>Nome Fantasia</label><input name="nomeFantasia"></div>
+          <div><label>Atividade Econômica Principal</label><input name="atividadeEconomica"></div>
+          <div><label>Telefones</label><input name="telefones"></div>
+          <div><label>Domínio / Site</label><input name="dominioEmpresa"></div>
         </div>
       </section>
 
+      <!-- Endereço -->
       <section>
         <h2>Endereço</h2>
         <div class="grid">
@@ -171,14 +170,7 @@
         </div>
       </section>
 
-      <section>
-        <h2>Contato da Empresa</h2>
-        <div class="grid">
-          <div><label>Telefone Principal</label><input name="telefoneEmpresa"></div>
-          <div><label>Domínio de e-mail corporativo</label><input name="dominioEmail"></div>
-        </div>
-      </section>
-
+      <!-- Responsável Administrativo -->
       <section>
         <h2>Responsável Administrativo / Legal</h2>
         <div class="grid">
@@ -188,50 +180,66 @@
           <div><label>RG</label><input name="adminRg"></div>
           <div><label>E-mail</label><input name="adminEmail"></div>
           <div><label>Celular</label><input name="adminCelular"></div>
+          <div><label>Telefone Fixo</label><input name="adminTelefoneFixo"></div>
         </div>
       </section>
 
+      <!-- Responsável Técnico -->
       <section>
-  <h2>Consentimento e Proteção de Dados (LGPD)</h2>
+        <h2>Responsável Técnico</h2>
+        <div class="grid">
+          <div><label>Nome Completo</label><input name="tecnicoNome"></div>
+          <div><label>E-mail</label><input name="tecnicoEmail"></div>
+          <div><label>Celular</label><input name="tecnicoCelular"></div>
+          <div><label>Telefone Fixo</label><input name="tecnicoTelefoneFixo"></div>
+        </div>
+      </section>
 
-  <div style="
-    background:#f9fafb;
-    border:1px solid #e0e0e0;
-    border-radius:6px;
-    padding:16px;
-    font-size:14px;
-    line-height:1.6;
-    margin-bottom:16px;
-  ">
-    <p>
-      Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
-      nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
-      aqui constantes serão tratados pela <strong>CASE Tecnologia</strong>, com a finalidade
-      de elaboração dos contratos e eventuais contatos necessários.
-    </p>
+      <!-- Responsável Cobrança -->
+      <section>
+        <h2>Responsável pela Cobrança</h2>
+        <div class="grid">
+          <div><label>Nome Completo</label><input name="cobrancaNome"></div>
+          <div><label>E-mail</label><input name="cobrancaEmail"></div>
+          <div><label>Celular</label><input name="cobrancaCelular"></div>
+          <div><label>Telefone Fixo</label><input name="cobrancaTelefoneFixo"></div>
+        </div>
+      </section>
 
-    <p>
-      A duração deste tratamento irá depender da vigência do contrato entabulado entre as partes,
-      bem como dos períodos previstos pela legislação brasileira. O Usuário/Cliente poderá solicitar,
-      a qualquer momento, o acesso aos seus dados que estão sob poder da CASE Tecnologia, bem como a
-      sua retificação, complementação, anonimização, bloqueio ou exclusão.
-    </p>
+      <!-- LGPD -->
+      <section>
+        <h2>Consentimento e Proteção de Dados (LGPD)</h2>
 
-    <p>
-      Maiores informações sobre a política de proteção de dados podem ser encontradas na
-      Política de Privacidade disponível no site da CASE Tecnologia.
-    </p>
-  </div>
+        <div class="lgpd-box">
+          <p>
+            Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
+            nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
+            aqui constantes serão tratados pela <strong>CASE Tecnologia</strong>, com a finalidade
+            de elaboração dos contratos e eventuais contatos necessários.
+          </p>
+          <p>
+            A duração deste tratamento dependerá da vigência do contrato entabulado entre as partes,
+            bem como dos períodos previstos pela legislação brasileira. O Usuário/Cliente poderá,
+            a qualquer momento, solicitar o acesso aos seus dados, bem como a sua retificação,
+            complementação, anonimização, bloqueio ou exclusão.
+          </p>
+          <p>
+            Mais informações podem ser encontradas na Política de Privacidade disponível no site
+            da CASE Tecnologia.
+          </p>
+        </div>
 
-  <label class="checkbox">
-    <input type="checkbox" name="lgpdConsentimento" required>
-    Declaro que li, compreendi e concordo com o tratamento dos meus dados pessoais conforme descrito acima.
-  </label>
-</section>
+        <label class="checkbox">
+          <input type="checkbox" name="lgpdConsentimento" required>
+          Declaro que li, compreendi e concordo com o tratamento dos meus dados pessoais conforme descrito acima.
+        </label>
+      </section>
 
+      <!-- Ações -->
       <div class="actions">
         <button type="submit">Enviar Cadastro</button>
       </div>
+
     </form>
   </div>
 
@@ -242,9 +250,9 @@
       const data = Object.fromEntries(new FormData(this).entries());
       data.timestamp = new Date().toISOString();
 
-      console.log("JSON gerado:", data);
+      console.log("JSON enviado:", data);
 
-      // TODO:
+      // Substituir pela URL do Power Automate:
       // await fetch("URL_DO_POWER_AUTOMATE", {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },
@@ -257,3 +265,4 @@
   </script>
 </body>
 </html>
+``
