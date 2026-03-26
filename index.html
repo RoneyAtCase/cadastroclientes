@@ -1,292 +1,238 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>FICHA CADASTRAL – CASE TECNOLOGIA</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>FICHA CADASTRAL – CASE TECNOLOGIA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-:root {
-  --bg-main: #f2f4f7;
-  --bg-section-a: #ffffff;
-  --bg-section-b: #f7f8fa;
-  --border: #dcdfe4;
-  --primary: #0b3c5d;
-  --secondary: #1f7a8c;
-}
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f2f4f7;
+      margin: 0;
+      color: #333;
+    }
 
-body {
-  margin: 0;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: var(--bg-main);
-  color: #333;
-}
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.08);
+      overflow: hidden;
+    }
 
-.container {
-  max-width: 1000px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  overflow: hidden;
-}
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 24px;
+      border-bottom: 1px solid #dcdfe4;
+    }
 
-/* ===== HEADER ===== */
-header {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 24px;
-  border-bottom: 1px solid var(--border);
-}
+    header img {
+      height: 56px;
+    }
 
-header img {
-  height: 56px;
-}
+    header h1 {
+      text-align: center;
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: #0b3c5d;
+    }
 
-header h1 {
-  text-align: center;
-  margin: 0;
-  font-size: 22px;
-  letter-spacing: 1px;
-  color: var(--primary);
-}
+    section {
+      padding: 24px;
+      border-bottom: 1px solid #e3e6ea;
+    }
 
-/* ===== SECTIONS ===== */
-section {
-  padding: 24px;
-  border-bottom: 1px solid var(--border);
-}
+    section:nth-child(even) {
+      background: #f7f8fa;
+    }
 
-section.section-a { background: var(--bg-section-a); }
-section.section-b { background: var(--bg-section-b); }
+    h2 {
+      margin: 0 0 16px 0;
+      font-size: 16px;
+      color: #1f7a8c;
+    }
 
-h2 {
-  margin: 0 0 16px 0;
-  font-size: 16px;
-  color: var(--secondary);
-}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
 
-/* ===== GRID ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
 
-/* ===== FORM FIELDS ===== */
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #cfd4da;
+      border-radius: 4px;
+    }
 
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #cfd4da;
-  border-radius: 4px;
-}
+    .checkbox-inline {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 10px 0 18px 0;
+      font-size: 14px;
+    }
 
-/* ===== CHECKBOX ===== */
-.checkbox-inline {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 10px 0 18px 0;
-  font-size: 14px;
-}
+    .lgpd-box {
+      background: #ffffff;
+      border: 1px solid #d5d9de;
+      border-radius: 6px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
 
-.checkbox-inline input {
-  margin: 0;
-}
+    .actions {
+      padding: 20px 24px;
+      background: #eef1f5;
+      text-align: right;
+    }
 
-/* ===== LGPD ===== */
-.lgpd-box {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 16px;
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
+    button {
+      background: #0b3c5d;
+      color: #fff;
+      border: none;
+      padding: 12px 28px;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-/* ===== ACTIONS ===== */
-.actions {
-  padding: 20px 24px;
-  background: #eef1f5;
-  text-align: right;
-}
-
-button {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  padding: 12px 28px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button:hover {
-  background: var(--secondary);
-}
-</style>
+    button:hover {
+      background: #1f7a8c;
+    }
+  </style>
 </head>
 
 <body>
 <div class="container">
 
-<header>
-  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
-  <h1>FICHA CADASTRAL</h1>
-  <div></div>
-</header>
+  <header>
+    <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia" />
+    <h1>FICHA CADASTRAL</h1>
+    <div></div>
+  </header>
 
-<form id="cadastroForm">
+  <form id="cadastroForm">
 
-<section class="section-a">
-<h2>Dados da Empresa</h2>
-<div class="grid">
-  <div><label>Razão Social / Nome *</label><input required></div>
-  <div><label>CNPJ / CPF *</label><input required></div>
-  <div><label>Inscrição Estadual</label><input></div>
-  <div><label>Nome Fantasia *</label><input required></div>
-  <div><label>Atividade Econômica Principal</label><input></div>
-  <div><label>Telefones *</label><input required></div>
-  <div><label>Domínio / Site</label><input></div>
-</div>
-</section>
+    <section>
+      <h2>Dados da Empresa</h2>
+      <div class="grid">
+        <div><label>Razão Social *</label><input name="razaoSocial" required></div>
+        <div><label>CNPJ / CPF *</label><input name="cnpjCpf" required></div>
+        <div><label>Inscrição Estadual</label><input name="inscricaoEstadual"></div>
+        <div><label>Nome Fantasia *</label><input name="nomeFantasia" required></div>
+        <div><label>Atividade Econômica</label><input name="atividadeEconomica"></div>
+        <div><label>Telefones *</label><input name="telefones" required></div>
+        <div><label>Domínio / Site</label><input name="dominioEmpresa"></div>
+      </div>
+    </section>
 
-<section class="section-b">
-<h2>Endereço</h2>
-<div class="grid">
-  <div><label>Endereço *</label><input required></div>
-  <div><label>Número *</label><input required></div>
-  <div><label>Complemento</label><input></div>
-  <div><label>Bairro *</label><input required></div>
-  <div><label>Cidade *</label><input required></div>
-  <div><label>Estado *</label><input required></div>
-  <div><label>CEP *</label><input required></div>
-  <div><label>País *</label><input value="Brasil" required></div>
-</div>
-</section>
+    <section>
+      <h2>Endereço</h2>
+      <div class="grid">
+        <div><label>Endereço *</label><input name="endereco" required></div>
+        <div><label>Número *</label><input name="numero" required></div>
+        <div><label>Complemento</label><input name="complemento"></div>
+        <div><label>Bairro *</label><input name="bairro" required></div>
+        <div><label>Cidade *</label><input name="cidade" required></div>
+        <div><label>Estado *</label><input name="estado" required></div>
+        <div><label>CEP *</label><input name="cep" required></div>
+        <div><label>País *</label><input name="pais" value="Brasil" required></div>
+      </div>
+    </section>
 
-<section class="section-a">
-<h2>Responsável Administrativo / Legal</h2>
-<div class="grid">
-  <div><label>Nome Completo *</label><input required></div>
-  <div><label>CPF *</label><input required></div>
-  <div><label>Data de Nascimento</label><input type="date"></div>
-  <div><label>RG</label><input></div>
-  <div><label>E-mail *</label><input type="email" required></div>
-  <div><label>Celular *</label><input required></div>
-  <div><label>Telefone Fixo</label><input></div>
-</div>
-</section>
+    <section>
+      <h2>Responsável Administrativo / Legal</h2>
+      <div class="grid">
+        <div><label>Nome *</label><input name="adminNome" required></div>
+        <div><label>CPF *</label><input name="adminCpf" required></div>
+        <div><label>Data de Nascimento</label><input type="date" name="adminNascimento"></div>
+        <div><label>RG</label><input name="adminRg"></div>
+        <div><label>E-mail *</label><input name="adminEmail" type="email" required></div>
+        <div><label>Celular *</label><input name="adminCelular" required></div>
+        <div><label>Telefone Fixo</label><input name="adminTelefoneFixo"></div>
+      </div>
+    </section>
 
-<section class="section-b">
-<h2>Responsável Técnico</h2>
-<label class="checkbox-inline">
-  <input type="checkbox">
-  Responsável Técnico é o mesmo do Responsável Administrativo
-</label>
-<div class="grid">
-  <div><label>Nome Completo</label><input></div>
-  <div><label>E-mail</label><input></div>
-  <div><label>Celular</label><input></div>
-</div>
-</section>
+    <section>
+      <h2>Consentimento LGPD</h2>
+      <div class="lgpd-box">
+        Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
+        nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
+        aqui constantes serão tratados pela CASE Tecnologia, com a finalidade de elaboração
+        dos Contratos e eventuais contatos necessários.
+      </div>
 
-<section class="section-a">
-<h2>Responsável pela Cobrança</h2>
-<label class="checkbox-inline">
-  <input type="checkbox">
-  Responsável pela Cobrança é o mesmo do Responsável Administrativo
-</label>
-<div class="grid">
-  <div><label>Nome Completo</label><input></div>
-  <div><label>E-mail</label><input></div>
-  <div><label>Celular</label><input></div>
-</div>
-</section>
+      <label class="checkbox-inline">
+        <input type="checkbox" required />
+        Declaro que li e concordo com o tratamento dos dados.
+      </label>
+    </section>
 
-<section class="section-b">
-<h2>Consentimento LGPD</h2>
+    <div class="actions">
+      <button type="submit">Enviar Cadastro</button>
+    </div>
 
-<div class="lgpd-box">
-  <p>
-    Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
-    nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
-    aqui constantes serão tratados, pela <strong>CASE Tecnologia</strong>, com a finalidade
-    de elaboração dos Contratos e eventuais contatos necessários.
-  </p>
-  <p>
-    A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes,
-    bem como dos períodos previstos pela legislação brasileira, sendo que o Usuário/Cliente
-    poderá solicitar, a qualquer momento, o acesso aos seus dados que estão sob poder da
-    CASE Tecnologia, bem como a retificação, complementação, anonimização, bloqueio ou exclusão.
-  </p>
-  <p>
-    Maiores informações acerca da política de proteção de dados podem ser encontradas na
-    Política de Privacidade constante no site da CASE Tecnologia.
-  </p>
+  </form>
 </div>
 
-<label class="checkbox-inline">
-  <input type="checkbox" required>
-  Declaro que li, compreendi e concordo com o tratamento dos dados pessoais nos termos acima.
-</label>
-</section>
-
-<div class="actions">
-  <button type="submit">Enviar Cadastro</button>
-</div>
-
-</form>
-</div>
 <script>
-document.getElementById("cadastroForm").addEventListener("submit", async function(e) {
+const FLOW_URL =
+  "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
+
+document.getElementById("cadastroForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const formData = new FormData(this);
-  const data = {};
+  const data = Object.fromEntries(formData.entries());
 
-  formData.forEach((value, key) => {
-    data[key] = value;
-  });
-
-  // 👇 CONVERSÃO CRÍTICA
   data.lgpdConsentimento = true;
-
   data.timestamp = new Date().toISOString();
 
-  const response = await fetch("https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
+  try {
+    const response = await fetch(FLOW_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
 
-  if (!response.ok) {
-    alert("Erro ao enviar cadastro.");
-    return;
+    if (!response.ok) {
+      alert("Erro ao enviar cadastro.");
+      return;
+    }
+
+    const result = await response.json();
+    alert(result.message);
+    this.reset();
+
+  } catch (err) {
+    console.error(err);
+    alert("Falha na comunicação com o servidor.");
   }
-
-  alert("Cadastro enviado com sucesso.");
-  this.reset();
 });
 </script>
-  
+
 </body>
 </html>
+``
