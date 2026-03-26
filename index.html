@@ -1,96 +1,92 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Ficha Cadastral – CASE Tecnologia</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    :root {
-      --primary: #0b3c5d;
-      --secondary: #1f7a8c;
-      --background: #f4f6f8;
-      --border: #dcdcdc;
-      --text: #333;
-    }
-
     body {
+      font-family: Segoe UI, Arial, sans-serif;
+      background: #f4f6f8;
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: var(--background);
-      color: var(--text);
+      color: #333;
     }
 
     .container {
-      max-width: 980px;
+      max-width: 1000px;
       margin: 40px auto;
       background: #fff;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,.08);
     }
 
     header {
       padding: 24px;
-      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 20px;
+      border-bottom: 1px solid #ddd;
     }
 
     header img {
       height: 48px;
-      max-width: 220px;
       object-fit: contain;
     }
 
-    header h1 {
+    h1 {
       font-size: 22px;
       margin: 0;
-      color: var(--primary);
+      color: #0b3c5d;
     }
 
     section {
       padding: 24px;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid #eee;
     }
 
-    section:last-child {
-      border-bottom: none;
-    }
-
-    section h2 {
+    h2 {
       font-size: 18px;
-      color: var(--secondary);
+      color: #1f7a8c;
       margin-bottom: 16px;
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 16px;
     }
 
     label {
-      font-size: 13px;
       font-weight: 600;
-      display: block;
+      font-size: 13px;
       margin-bottom: 4px;
+      display: block;
     }
 
-    input, select {
+    input {
       width: 100%;
       padding: 10px;
-      border-radius: 4px;
-      border: 1px solid var(--border);
       font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     .checkbox {
       display: flex;
+      gap: 8px;
       align-items: flex-start;
-      gap: 10px;
       font-size: 14px;
+    }
+
+    .lgpd-box {
+      background: #f9fafb;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .actions {
@@ -100,169 +96,168 @@
     }
 
     button {
-      background: var(--primary);
+      background: #0b3c5d;
       color: #fff;
       border: none;
-      padding: 12px 28px;
+      padding: 14px 28px;
       font-size: 15px;
       border-radius: 4px;
       cursor: pointer;
     }
 
     button:hover {
-      background: var(--secondary);
-    }
-
-    .lgpd-box {
-      background:#f9fafb;
-      border:1px solid #e0e0e0;
-      border-radius:6px;
-      padding:16px;
-      font-size:14px;
-      line-height:1.6;
-      margin-bottom:16px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      background: #1f7a8c;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
-      <h1>Ficha Cadastral</h1>
-    </header>
+<div class="container">
+<header>
+  <img src="https://www.casetecnologia.com.br/logo-h-w.png" alt="CASE Tecnologia">
+  <h1>Ficha Cadastral</h1>
+</header>
 
-    <form id="cadastroForm">
+<form id="cadastroForm">
 
-      <!-- Dados da Empresa -->
-      <section>
-        <h2>Dados da Empresa</h2>
-        <div class="grid">
-          <div><label>Razão Social / Nome</label><input name="razaoSocial" required></div>
-          <div><label>CNPJ / CPF</label><input name="cnpjCpf" required></div>
-          <div><label>Inscrição Estadual</label><input name="inscricaoEstadual"></div>
-          <div><label>Nome Fantasia</label><input name="nomeFantasia"></div>
-          <div><label>Atividade Econômica Principal</label><input name="atividadeEconomica"></div>
-          <div><label>Telefones</label><input name="telefones"></div>
-          <div><label>Domínio / Site</label><input name="dominioEmpresa"></div>
-        </div>
-      </section>
+<!-- DADOS EMPRESA -->
+<section>
+<h2>Dados da Empresa</h2>
+<div class="grid">
+<inputField label="Razão Social / Nome" name="razaoSocial" required>
+<inputField label="CNPJ / CPF" name="cnpjCpf" id="cnpjCpf" required>
+<inputField label="Inscrição Estadual" name="inscricaoEstadual">
+<inputField label="Nome Fantasia" name="nomeFantasia">
+<inputField label="Atividade Econômica Principal" name="atividadeEconomica">
+<inputField label="Telefones" name="telefones" class="telefone">
+<inputField label="Domínio / Site" name="dominioEmpresa">
+</div>
+</section>
 
-      <!-- Endereço -->
-      <section>
-        <h2>Endereço</h2>
-        <div class="grid">
-          <div><label>Endereço</label><input name="endereco"></div>
-          <div><label>Número</label><input name="numero"></div>
-          <div><label>Complemento</label><input name="complemento"></div>
-          <div><label>Bairro</label><input name="bairro"></div>
-          <div><label>Cidade</label><input name="cidade"></div>
-          <div><label>Estado</label><input name="estado"></div>
-          <div><label>CEP</label><input name="cep"></div>
-          <div><label>País</label><input name="pais" value="Brasil"></div>
-        </div>
-      </section>
+<!-- ENDEREÇO -->
+<section>
+<h2>Endereço</h2>
+<div class="grid">
+<inputField label="Endereço" name="endereco">
+<inputField label="Número" name="numero">
+<inputField label="Complemento" name="complemento">
+<inputField label="Bairro" name="bairro">
+<inputField label="Cidade" name="cidade">
+<inputField label="Estado" name="estado">
+<inputField label="CEP" name="cep">
+<inputField label="País" name="pais" value="Brasil">
+</div>
+</section>
 
-      <!-- Responsável Administrativo -->
-      <section>
-        <h2>Responsável Administrativo / Legal</h2>
-        <div class="grid">
-          <div><label>Nome Completo</label><input name="adminNome"></div>
-          <div><label>CPF</label><input name="adminCpf"></div>
-          <div><label>Data de Nascimento</label><input type="date" name="adminNascimento"></div>
-          <div><label>RG</label><input name="adminRg"></div>
-          <div><label>E-mail</label><input name="adminEmail"></div>
-          <div><label>Celular</label><input name="adminCelular"></div>
-          <div><label>Telefone Fixo</label><input name="adminTelefoneFixo"></div>
-        </div>
-      </section>
+<!-- ADMIN -->
+<section>
+<h2>Responsável Administrativo / Legal</h2>
+<div class="grid">
+<inputField label="Nome Completo" name="adminNome">
+<inputField label="CPF" name="adminCpf" id="adminCpf">
+<inputField label="Data de Nascimento" type="date" name="adminNascimento">
+<inputField label="RG" name="adminRg">
+<inputField label="E-mail" name="adminEmail">
+<inputField label="Celular" name="adminCelular" class="telefone">
+<inputField label="Telefone Fixo" name="adminTelefoneFixo" class="telefone">
+</div>
+</section>
 
-      <!-- Responsável Técnico -->
-      <section>
-        <h2>Responsável Técnico</h2>
-        <div class="grid">
-          <div><label>Nome Completo</label><input name="tecnicoNome"></div>
-          <div><label>E-mail</label><input name="tecnicoEmail"></div>
-          <div><label>Celular</label><input name="tecnicoCelular"></div>
-          <div><label>Telefone Fixo</label><input name="tecnicoTelefoneFixo"></div>
-        </div>
-      </section>
+<!-- TÉCNICO -->
+<section>
+<h2>Responsável Técnico</h2>
+<label class="checkbox">
+<input type="checkbox" id="tecnicoIgualAdmin">
+Responsável Técnico é o mesmo do Administrativo
+</label>
+<div class="grid" id="tecnicoCampos">
+<inputField label="Nome Completo" name="tecnicoNome">
+<inputField label="E-mail" name="tecnicoEmail">
+<inputField label="Celular" name="tecnicoCelular" class="telefone">
+<inputField label="Telefone Fixo" name="tecnicoTelefoneFixo" class="telefone">
+</div>
+</section>
 
-      <!-- Responsável Cobrança -->
-      <section>
-        <h2>Responsável pela Cobrança</h2>
-        <div class="grid">
-          <div><label>Nome Completo</label><input name="cobrancaNome"></div>
-          <div><label>E-mail</label><input name="cobrancaEmail"></div>
-          <div><label>Celular</label><input name="cobrancaCelular"></div>
-          <div><label>Telefone Fixo</label><input name="cobrancaTelefoneFixo"></div>
-        </div>
-      </section>
+<!-- COBRANÇA -->
+<section>
+<h2>Responsável pela Cobrança</h2>
+<label class="checkbox">
+<input type="checkbox" id="cobrancaIgualAdmin">
+Responsável pela Cobrança é o mesmo do Administrativo
+</label>
+<div class="grid" id="cobrancaCampos">
+<inputField label="Nome Completo" name="cobrancaNome">
+<inputField label="E-mail" name="cobrancaEmail">
+<inputField label="Celular" name="cobrancaCelular" class="telefone">
+<inputField label="Telefone Fixo" name="cobrancaTelefoneFixo" class="telefone">
+</div>
+</section>
 
-      <!-- LGPD -->
-      <section>
-        <h2>Consentimento e Proteção de Dados (LGPD)</h2>
+<!-- LGPD -->
+<section>
+<h2>Consentimento LGPD</h2>
+<div class="lgpd-box">
+<p>Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (LGPD)...</p>
+<p>O tratamento ocorrerá pela CASE Tecnologia para fins contratuais e de contato.</p>
+</div>
+<label class="checkbox">
+<input type="checkbox" required name="lgpdConsentimento">
+Declaro que li e concordo com o tratamento dos dados.
+</label>
+</section>
 
-        <div class="lgpd-box">
-          <p>
-            Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo,
-            nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais
-            aqui constantes serão tratados pela <strong>CASE Tecnologia</strong>, com a finalidade
-            de elaboração dos contratos e eventuais contatos necessários.
-          </p>
-          <p>
-            A duração deste tratamento dependerá da vigência do contrato entabulado entre as partes,
-            bem como dos períodos previstos pela legislação brasileira. O Usuário/Cliente poderá,
-            a qualquer momento, solicitar o acesso aos seus dados, bem como a sua retificação,
-            complementação, anonimização, bloqueio ou exclusão.
-          </p>
-          <p>
-            Mais informações podem ser encontradas na Política de Privacidade disponível no site
-            da CASE Tecnologia.
-          </p>
-        </div>
+<div class="actions">
+<button type="submit">Enviar Cadastro</button>
+</div>
 
-        <label class="checkbox">
-          <input type="checkbox" name="lgpdConsentimento" required>
-          Declaro que li, compreendi e concordo com o tratamento dos meus dados pessoais conforme descrito acima.
-        </label>
-      </section>
+</form>
+</div>
 
-      <!-- Ações -->
-      <div class="actions">
-        <button type="submit">Enviar Cadastro</button>
-      </div>
+<script>
+function copiarAdmin(destino) {
+ ['Nome','Email','Celular','TelefoneFixo'].forEach(c=>{
+  const a=document.querySelector('[name="admin'+c+'"]');
+  const d=document.querySelector('[name="'+destino+c+'"]');
+  if(a&&d)d.value=a.value;
+});
+}
 
-    </form>
-  </div>
+document.getElementById("tecnicoIgualAdmin").onchange=e=>{
+ document.getElementById("tecnicoCampos").style.display =
+ e.target.checked?(copiarAdmin("tecnico"),"none"):"grid";
+};
+document.getElementById("cobrancaIgualAdmin").onchange=e=>{
+ document.getElementById("cobrancaCampos").style.display =
+ e.target.checked?(copiarAdmin("cobranca"),"none"):"grid";
+};
 
-  <script>
-    document.getElementById("cadastroForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
+function maskTel(i){
+ i.oninput=()=>{let v=i.value.replace(/\D/g,'').slice(0,11);
+ i.value=v.length>=11?`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`:
+ v.length>=10?`(${v.slice(0,2)}) ${v.slice(2,6)}-${v.slice(6)}`:v;}
+}
+document.querySelectorAll('.telefone').forEach(maskTel);
 
-      const data = Object.fromEntries(new FormData(this).entries());
-      data.timestamp = new Date().toISOString();
+document.getElementById("adminCpf").oninput=e=>{
+ let v=e.target.value.replace(/\D/g,'').slice(0,11);
+ e.target.value=v.replace(/(\d{3})(\d)/,'$1.$2')
+ .replace(/(\d{3})(\d)/,'$1.$2')
+ .replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+};
+document.getElementById("cnpjCpf").oninput=e=>{
+ let v=e.target.value.replace(/\D/g,'').slice(0,14);
+ e.target.value=v.replace(/^(\d{2})(\d)/,'$1.$2')
+ .replace(/^(\d{2})\.(\d{3})(\d)/,'$1.$2.$3')
+ .replace(/\.(\d{3})(\d)/,'.$1/$2')
+ .replace(/(\d{4})(\d)/,'$1-$2');
+};
 
-      console.log("JSON enviado:", data);
+document.getElementById("cadastroForm").onsubmit=e=>{
+ e.preventDefault();
+ alert("Cadastro enviado com sucesso.");
+};
+</script>
 
-      // Substituir pela URL do Power Automate:
-      // await fetch("URL_DO_POWER_AUTOMATE", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify(data)
-      // });
-
-      alert("Cadastro enviado com sucesso.");
-      this.reset();
-    });
-  </script>
 </body>
 </html>
 ``
