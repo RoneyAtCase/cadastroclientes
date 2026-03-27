@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Importando IMask v7.6.1 (versão estável e completa para evitar erros de source map) -->
+  <!-- Importando IMask v7.6.1 -->
   <script src="https://cdn.jsdelivr.net/npm/imask@7.6.1/dist/imask.min.js"></script>
   <style>
     :root {
@@ -122,7 +122,6 @@
       cursor: not-allowed;
     }
 
-    /* Status de Carregamento e Feedback */
     .field-status {
       position: absolute;
       right: 12px;
@@ -131,38 +130,14 @@
       display: none;
     }
 
-    .field-status.loading {
-      display: block;
-      animation: spin 1s linear infinite;
-    }
+    .field-status.loading { display: block; animation: spin 1s linear infinite; }
+    .field-status.success { display: block; color: var(--success-color); }
+    .field-status.error { display: block; color: var(--error-color); }
 
-    .field-status.success {
-      display: block;
-      color: var(--success-color);
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .field-status.error {
-      display: block;
-      color: var(--error-color);
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .field-hint {
-      font-size: 12px;
-      color: #999;
-      margin-top: 4px;
-    }
-
-    .field-error {
-      font-size: 12px;
-      color: var(--error-color);
-      margin-top: 4px;
-      display: none;
-    }
-
+    .field-hint { font-size: 12px; color: #999; margin-top: 4px; }
+    .field-error { font-size: 12px; color: var(--error-color); margin-top: 4px; display: none; }
     .field-error.show { display: block; }
 
     .checkbox-container {
@@ -180,10 +155,7 @@
       color: var(--secondary-color);
     }
 
-    .checkbox-container input {
-      width: auto;
-      cursor: pointer;
-    }
+    .checkbox-container input { width: auto; cursor: pointer; }
 
     .lgpd-box {
       border: 1px solid #ddd;
@@ -208,11 +180,7 @@
 
     .lgpd-consent input { width: auto; margin-top: 4px; }
 
-    .actions {
-      padding: 30px;
-      background: #f1f3f5;
-      text-align: right;
-    }
+    .actions { padding: 30px; background: #f1f3f5; text-align: right; }
 
     button {
       background: var(--primary-color);
@@ -227,17 +195,9 @@
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    button:hover {
-      background: #082d46;
-      transform: translateY(-1px);
-    }
-
+    button:hover { background: #082d46; transform: translateY(-1px); }
     button:active { transform: translateY(0); }
-
-    button:disabled {
-      background: #ccc;
-      cursor: not-allowed;
-    }
+    button:disabled { background: #ccc; cursor: not-allowed; }
 
     .spinner {
       display: none;
@@ -253,7 +213,6 @@
     .loading .spinner { display: inline-block; }
     .loading span { display: none; }
 
-    /* Modal Personalizado */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -281,37 +240,16 @@
     }
 
     @keyframes slideIn {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .modal-icon {
-      font-size: 48px;
-      margin-bottom: 20px;
-    }
-
+    .modal-icon { font-size: 48px; margin-bottom: 20px; }
     .modal-icon.success { color: var(--success-color); }
     .modal-icon.error { color: var(--error-color); }
 
-    .modal-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 12px;
-    }
-
-    .modal-message {
-      font-size: 14px;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+    .modal-title { font-size: 20px; font-weight: 700; color: var(--primary-color); margin-bottom: 12px; }
+    .modal-message { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 20px; }
 
     .modal-debug {
       display: none;
@@ -362,7 +300,6 @@
   </header>
 
   <form id="cadastroForm">
-
     <!-- Dados da Empresa -->
     <section>
       <h2>Dados da Empresa</h2>
@@ -374,36 +311,12 @@
           <div class="field-error" id="cnpjError"></div>
           <div class="field-hint">Digite o CNPJ para preencher automaticamente os dados da empresa</div>
         </div>
-
-        <div class="field-group">
-          <label>Razão Social *</label>
-          <input name="razaoSocial" id="razaoSocial" placeholder="Ex: Case Tecnologia Ltda" required>
-        </div>
-
-        <div class="field-group">
-          <label>Nome Fantasia *</label>
-          <input name="nomeFantasia" id="nomeFantasia" placeholder="Nome Comercial" required>
-        </div>
-
-        <div class="field-group">
-          <label>Inscrição Estadual</label>
-          <input name="inscricaoEstadual" placeholder="Isento ou Número">
-        </div>
-
-        <div class="field-group">
-          <label>Atividade Econômica</label>
-          <input name="atividadeEconomica" id="atividadeEconomica" placeholder="Ex: Consultoria em TI">
-        </div>
-
-        <div class="field-group">
-          <label>Telefones *</label>
-          <input name="telefones" id="telefones" placeholder="(00) 0000-0000" required>
-        </div>
-
-        <div class="field-group">
-          <label>Domínio / Site</label>
-          <input name="dominioEmpresa" id="dominioEmpresa" placeholder="www.exemplo.com.br">
-        </div>
+        <div class="field-group"><label>Razão Social *</label><input name="razaoSocial" id="razaoSocial" placeholder="Ex: Case Tecnologia Ltda" required></div>
+        <div class="field-group"><label>Nome Fantasia *</label><input name="nomeFantasia" id="nomeFantasia" placeholder="Nome Comercial" required></div>
+        <div class="field-group"><label>Inscrição Estadual</label><input name="inscricaoEstadual" placeholder="Isento ou Número"></div>
+        <div class="field-group"><label>Atividade Econômica</label><input name="atividadeEconomica" id="atividadeEconomica" placeholder="Ex: Consultoria em TI"></div>
+        <div class="field-group"><label>Telefones *</label><input name="telefones" id="telefones" placeholder="(00) 0000-0000" required></div>
+        <div class="field-group"><label>Domínio / Site</label><input name="dominioEmpresa" id="dominioEmpresa" placeholder="www.exemplo.com.br"></div>
       </div>
     </section>
 
@@ -418,32 +331,11 @@
           <div class="field-error" id="cepError"></div>
           <div class="field-hint">Digite o CEP para preencher automaticamente o endereço</div>
         </div>
-
-        <div class="field-group">
-          <label>Endereço *</label>
-          <input name="endereco" id="endereco" placeholder="Rua, Avenida, etc." required>
-        </div>
-
-        <div class="field-group">
-          <label>Número *</label>
-          <input name="numero" placeholder="Ex: 123" required>
-        </div>
-
-        <div class="field-group">
-          <label>Complemento</label>
-          <input name="complemento" placeholder="Sala, Bloco, etc.">
-        </div>
-
-        <div class="field-group">
-          <label>Bairro *</label>
-          <input name="bairro" id="bairro" placeholder="Bairro" required>
-        </div>
-
-        <div class="field-group">
-          <label>Cidade *</label>
-          <input name="cidade" id="cidade" placeholder="Cidade" required>
-        </div>
-
+        <div class="field-group"><label>Endereço *</label><input name="endereco" id="endereco" placeholder="Rua, Avenida, etc." required></div>
+        <div class="field-group"><label>Número *</label><input name="numero" placeholder="Ex: 123" required></div>
+        <div class="field-group"><label>Complemento</label><input name="complemento" placeholder="Sala, Bloco, etc."></div>
+        <div class="field-group"><label>Bairro *</label><input name="bairro" id="bairro" placeholder="Bairro" required></div>
+        <div class="field-group"><label>Cidade *</label><input name="cidade" id="cidade" placeholder="Cidade" required></div>
         <div class="field-group">
           <label>Estado *</label>
           <select name="estado" id="estado" required>
@@ -459,11 +351,7 @@
             <option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option>
           </select>
         </div>
-
-        <div class="field-group">
-          <label>País *</label>
-          <input name="pais" value="Brasil" readonly style="background: #f0f0f0;">
-        </div>
+        <div class="field-group"><label>País *</label><input name="pais" value="Brasil" readonly style="background: #f0f0f0;"></div>
       </div>
     </section>
 
@@ -471,80 +359,35 @@
     <section id="secAdmin">
       <h2>Responsável Administrativo / Legal</h2>
       <div class="grid">
-        <div class="field-group">
-          <label>Nome Completo *</label>
-          <input name="adminNome" id="adminNome" placeholder="Nome do responsável" required>
-        </div>
-        <div class="field-group">
-          <label>CPF *</label>
-          <input name="adminCpf" id="adminCpf" placeholder="000.000.000-00" required>
-        </div>
-        <div class="field-group">
-          <label>Data de Nascimento</label>
-          <input type="date" name="adminNascimento">
-        </div>
-        <div class="field-group">
-          <label>RG</label>
-          <input name="adminRg" placeholder="Número do RG">
-        </div>
-        <div class="field-group">
-          <label>E-mail *</label>
-          <input name="adminEmail" id="adminEmail" type="email" placeholder="email@exemplo.com" required>
-        </div>
-        <div class="field-group">
-          <label>Celular (WhatsApp) *</label>
-          <input name="adminCelular" id="adminCelular" placeholder="(00) 00000-0000" required>
-        </div>
-        <div class="field-group">
-          <label>Telefone Fixo</label>
-          <input name="adminTelefoneFixo" id="adminTelefoneFixo" placeholder="(00) 0000-0000">
-        </div>
+        <div class="field-group"><label>Nome Completo *</label><input name="adminNome" id="adminNome" placeholder="Nome do responsável" required></div>
+        <div class="field-group"><label>CPF *</label><input name="adminCpf" id="adminCpf" placeholder="000.000.000-00" required></div>
+        <div class="field-group"><label>Data de Nascimento</label><input type="date" name="adminNascimento"></div>
+        <div class="field-group"><label>RG</label><input name="adminRg" placeholder="Número do RG"></div>
+        <div class="field-group"><label>E-mail *</label><input name="adminEmail" id="adminEmail" type="email" placeholder="email@exemplo.com" required></div>
+        <div class="field-group"><label>Celular (WhatsApp) *</label><input name="adminCelular" id="adminCelular" placeholder="(00) 00000-0000" required></div>
+        <div class="field-group"><label>Telefone Fixo</label><input name="adminTelefoneFixo" id="adminTelefoneFixo" placeholder="(00) 0000-0000"></div>
       </div>
     </section>
 
     <!-- Responsável Técnico -->
     <section>
       <h2>Responsável Técnico</h2>
-      <label class="checkbox-container">
-        <input type="checkbox" id="sameAsAdminTecnico"> 
-        Mesmo que o Responsável Administrativo
-      </label>
+      <label class="checkbox-container"><input type="checkbox" id="sameAsAdminTecnico"> Mesmo que o Responsável Administrativo</label>
       <div class="grid" id="gridTecnico">
-        <div class="field-group">
-          <label>Nome Completo</label>
-          <input name="tecnicoNome" id="tecnicoNome" placeholder="Nome do técnico">
-        </div>
-        <div class="field-group">
-          <label>E-mail</label>
-          <input name="tecnicoEmail" id="tecnicoEmail" type="email" placeholder="email@exemplo.com">
-        </div>
-        <div class="field-group">
-          <label>Celular (WhatsApp)</label>
-          <input name="tecnicoCelular" id="tecnicoCelular" placeholder="(00) 00000-0000">
-        </div>
+        <div class="field-group"><label>Nome Completo</label><input name="tecnicoNome" id="tecnicoNome" placeholder="Nome do técnico"></div>
+        <div class="field-group"><label>E-mail</label><input name="tecnicoEmail" id="tecnicoEmail" type="email" placeholder="email@exemplo.com"></div>
+        <div class="field-group"><label>Celular (WhatsApp)</label><input name="tecnicoCelular" id="tecnicoCelular" placeholder="(00) 00000-0000"></div>
       </div>
     </section>
 
     <!-- Responsável pela Cobrança -->
     <section>
       <h2>Responsável pela Cobrança</h2>
-      <label class="checkbox-container">
-        <input type="checkbox" id="sameAsAdminCobranca"> 
-        Mesmo que o Responsável Administrativo
-      </label>
+      <label class="checkbox-container"><input type="checkbox" id="sameAsAdminCobranca"> Mesmo que o Responsável Administrativo</label>
       <div class="grid" id="gridCobranca">
-        <div class="field-group">
-          <label>Nome Completo</label>
-          <input name="cobrancaNome" id="cobrancaNome" placeholder="Nome para cobrança">
-        </div>
-        <div class="field-group">
-          <label>E-mail</label>
-          <input name="cobrancaEmail" id="cobrancaEmail" type="email" placeholder="email@exemplo.com">
-        </div>
-        <div class="field-group">
-          <label>Celular (WhatsApp)</label>
-          <input name="cobrancaCelular" id="cobrancaCelular" placeholder="(00) 00000-0000">
-        </div>
+        <div class="field-group"><label>Nome Completo</label><input name="cobrancaNome" id="cobrancaNome" placeholder="Nome para cobrança"></div>
+        <div class="field-group"><label>E-mail</label><input name="cobrancaEmail" id="cobrancaEmail" type="email" placeholder="email@exemplo.com"></div>
+        <div class="field-group"><label>Celular (WhatsApp)</label><input name="cobrancaCelular" id="cobrancaCelular" placeholder="(00) 00000-0000"></div>
       </div>
     </section>
 
@@ -568,29 +411,24 @@
         <p>A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes, bem como dos períodos previstos pela legislação brasileira, sendo que o Usuário/Cliente poderá solicitar, a qualquer momento, o acesso aos seus dados que estão sob poder da CASE Tecnologia, bem como a retificação, complementação, anonimização, bloqueio ou exclusão.</p>
         <p>Maiores informações acerca da política de proteção de dados podem ser encontradas na Política de Privacidade constante no site da CASE Tecnologia.</p>
       </div>
-      
-      <label class="lgpd-consent">
-        <input type="checkbox" name="lgpdConsentimento" required>
-        <span>Declaro que li e concordo com o tratamento dos dados pessoais e documentos societários conforme descrito acima. *</span>
-      </label>
+      <label class="lgpd-consent"><input type="checkbox" name="lgpdConsentimento" required><span>Declaro que li e concordo com o tratamento dos dados pessoais e documentos societários conforme descrito acima. *</span></label>
     </section>
 
-    <div class="actions">
-      <button type="submit" id="btnSubmit">
-        <span>Enviar Cadastro</span>
-        <div class="spinner"></div>
-      </button>
-    </div>
+    <div class="actions"><button type="submit" id="btnSubmit"><span>Enviar Cadastro</span><div class="spinner"></div></button></div>
   </form>
 </div>
 
 <script>
-  const FLOW_URL = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
+  // Função para decodificar a URL e garantir que o caractere & não seja &amp;
+  function getFlowUrl() {
+    const rawUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
+    const doc = new DOMParser().parseFromString(rawUrl, "text/html");
+    return doc.documentElement.textContent;
+  }
 
-  // Armazenamento das instâncias de máscara para sincronização posterior
+  const FLOW_URL = getFlowUrl();
+
   const masks = {};
-
-  // Máscaras de Input
   const maskOptions = {
     cnpjCpf: { mask: [{ mask: '000.000.000-00', type: 'CPF' }, { mask: '00.000.000/0000-00', type: 'CNPJ' }] },
     cpf: { mask: '000.000.000-00' },
@@ -599,26 +437,19 @@
     cel: { mask: '(00) 00000-0000' }
   };
 
-  masks.cnpjCpf = IMask(document.getElementById('cnpjCpf'), maskOptions.cnpjCpf);
-  masks.cep = IMask(document.getElementById('cep'), maskOptions.cep);
-  masks.telefones = IMask(document.getElementById('telefones'), maskOptions.phone);
-  masks.adminCpf = IMask(document.getElementById('adminCpf'), maskOptions.cpf);
-  masks.adminCelular = IMask(document.getElementById('adminCelular'), maskOptions.cel);
-  masks.adminTelefoneFixo = IMask(document.getElementById('adminTelefoneFixo'), maskOptions.phone);
-  masks.tecnicoCelular = IMask(document.getElementById('tecnicoCelular'), maskOptions.cel);
-  masks.cobrancaCelular = IMask(document.getElementById('cobrancaCelular'), maskOptions.cel);
+  function initMasks() {
+    masks.cnpjCpf = IMask(document.getElementById('cnpjCpf'), maskOptions.cnpjCpf);
+    masks.cep = IMask(document.getElementById('cep'), maskOptions.cep);
+    masks.telefones = IMask(document.getElementById('telefones'), maskOptions.phone);
+    masks.adminCpf = IMask(document.getElementById('adminCpf'), maskOptions.cpf);
+    masks.adminCelular = IMask(document.getElementById('adminCelular'), maskOptions.cel);
+    masks.adminTelefoneFixo = IMask(document.getElementById('adminTelefoneFixo'), maskOptions.phone);
+    masks.tecnicoCelular = IMask(document.getElementById('tecnicoCelular'), maskOptions.cel);
+    masks.cobrancaCelular = IMask(document.getElementById('cobrancaCelular'), maskOptions.cel);
+  }
+  initMasks();
 
-  // Modal Personalizado
-  const modalHTML = `
-    <div class="modal-overlay" id="modalOverlay">
-      <div class="modal-content">
-        <div class="modal-icon">✓</div>
-        <div class="modal-title">Sucesso!</div>
-        <div class="modal-message">Seu cadastro foi enviado com sucesso.</div>
-        <button class="modal-button" id="modalButton">OK</button>
-      </div>
-    </div>
-  `;
+  const modalHTML = `<div class="modal-overlay" id="modalOverlay"><div class="modal-content"><div class="modal-icon">✓</div><div class="modal-title">Sucesso!</div><div class="modal-message"></div><div class="modal-debug"></div><button class="modal-button" id="modalButton">OK</button></div></div>`;
   document.body.insertAdjacentHTML('beforeend', modalHTML);
 
   function showModal(title, message, isSuccess = true, debugInfo = null) {
@@ -626,126 +457,81 @@
     const icon = overlay.querySelector('.modal-icon');
     const titleEl = overlay.querySelector('.modal-title');
     const messageEl = overlay.querySelector('.modal-message');
-    const debugEl = overlay.querySelector('.modal-debug') || document.createElement('div');
-    
-    if (!overlay.querySelector('.modal-debug')) {
-      debugEl.className = 'modal-debug';
-      messageEl.after(debugEl);
-    }
-
+    const debugEl = overlay.querySelector('.modal-debug');
     icon.textContent = isSuccess ? '✓' : '✕';
     icon.className = 'modal-icon ' + (isSuccess ? 'success' : 'error');
     titleEl.textContent = title;
     messageEl.textContent = message;
-    
     if (debugInfo) {
-      debugEl.textContent = `[DIAGNÓSTICO TÉCNICO]\nData: ${new Date().toLocaleString('pt-BR')}\nErro: ${debugInfo}`;
+      debugEl.textContent = `[DIAGNÓSTICO TÉCNICO]\nData: ${new Date().toLocaleString('pt-BR')}\n${debugInfo}`;
       debugEl.classList.add('active');
     } else {
       debugEl.classList.remove('active');
     }
-    
     overlay.classList.add('active');
   }
 
-  function closeModal() { 
-    const overlay = document.getElementById('modalOverlay');
-    overlay.classList.remove('active');
-    const debugEl = overlay.querySelector('.modal-debug');
-    if (debugEl) debugEl.classList.remove('active');
-  }
-  document.getElementById('modalButton').addEventListener('click', closeModal);
+  document.getElementById('modalButton').addEventListener('click', () => document.getElementById('modalOverlay').classList.remove('active'));
 
-  // Normalização de URL
   function normalizeUrl(url) {
     if (!url) return '';
     url = url.trim();
-    if (!url.match(/^https?:\/\//i)) url = 'https://' + url;
-    return url;
+    return url.match(/^https?:\/\//i) ? url : 'https://' + url;
   }
   document.getElementById('dominioEmpresa').addEventListener('blur', function() {
     if (this.value) this.value = normalizeUrl(this.value).replace(/^https?:\/\//, '');
   });
 
-  // Consulta CEP
-  const cepInput = document.getElementById('cep');
-  const cepStatus = document.getElementById('cepStatus');
-  const cepError = document.getElementById('cepError');
-
-  cepInput.addEventListener('blur', async function() {
-    const cepValue = this.value.replace(/\D/g, '');
-    if (cepValue.length !== 8) return;
-    cepError.classList.remove('show');
-    cepStatus.textContent = '⏳';
-    cepStatus.className = 'field-status loading';
+  document.getElementById('cep').addEventListener('blur', async function() {
+    const val = this.value.replace(/\D/g, '');
+    if (val.length !== 8) return;
+    const status = document.getElementById('cepStatus');
+    status.textContent = '⏳'; status.className = 'field-status loading';
     try {
-      const r = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
+      const r = await fetch(`https://viacep.com.br/ws/${val}/json/`);
       const d = await r.json();
-      if (d.erro) {
-        cepStatus.textContent = '✕';
-        cepStatus.className = 'field-status error';
-        cepError.textContent = 'CEP não encontrado';
-        cepError.classList.add('show');
-      } else {
-        document.getElementById('endereco').value = d.logradouro;
-        document.getElementById('bairro').value = d.bairro;
-        document.getElementById('cidade').value = d.localidade;
-        document.getElementById('estado').value = d.uf;
-        cepStatus.textContent = '✓';
-        cepStatus.className = 'field-status success';
-      }
+      if (d.erro) throw new Error();
+      document.getElementById('endereco').value = d.logradouro;
+      document.getElementById('bairro').value = d.bairro;
+      document.getElementById('cidade').value = d.localidade;
+      document.getElementById('estado').value = d.uf;
+      status.textContent = '✓'; status.className = 'field-status success';
     } catch (e) {
-      cepStatus.textContent = '✕';
-      cepStatus.className = 'field-status error';
+      status.textContent = '✕'; status.className = 'field-status error';
     }
   });
 
-  // Consulta CNPJ
-  const cnpjInput = document.getElementById('cnpjCpf');
-  const cnpjStatus = document.getElementById('cnpjStatus');
-  const cnpjError = document.getElementById('cnpjError');
-
-  cnpjInput.addEventListener('blur', async function() {
-    const cnpjValue = this.value.replace(/\D/g, '');
-    if (cnpjValue.length !== 14) return;
-    cnpjError.classList.remove('show');
-    cnpjStatus.textContent = '⏳';
-    cnpjStatus.className = 'field-status loading';
+  document.getElementById('cnpjCpf').addEventListener('blur', async function() {
+    const val = this.value.replace(/\D/g, '');
+    if (val.length !== 14) return;
+    const status = document.getElementById('cnpjStatus');
+    status.textContent = '⏳'; status.className = 'field-status loading';
     try {
-      const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjValue}`);
+      const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${val}`);
       if (!r.ok) throw new Error();
       const d = await r.json();
       document.getElementById('razaoSocial').value = d.razao_social || '';
       document.getElementById('nomeFantasia').value = d.nome_fantasia || d.razao_social || '';
       document.getElementById('atividadeEconomica').value = d.cnae_fiscal_descricao || '';
       if (!document.getElementById('cep').value) {
-        document.getElementById('cep').value = d.cep || '';
-        masks.cep.updateValue(); // Sincroniza a máscara do CEP
+        masks.cep.value = d.cep || '';
         document.getElementById('endereco').value = d.logradouro || '';
         document.getElementById('bairro').value = d.bairro || '';
         document.getElementById('cidade').value = d.municipio || '';
         document.getElementById('estado').value = d.uf || '';
       }
-      cnpjStatus.textContent = '✓';
-      cnpjStatus.className = 'field-status success';
+      status.textContent = '✓'; status.className = 'field-status success';
     } catch (e) {
-      cnpjStatus.textContent = '✕';
-      cnpjStatus.className = 'field-status error';
-      cnpjError.textContent = 'CNPJ não encontrado';
-      cnpjError.classList.add('show');
+      status.textContent = '✕'; status.className = 'field-status error';
     }
   });
-
-  // Replicação de Dados
-  const sameAsAdminTecnico = document.getElementById('sameAsAdminTecnico');
-  const sameAsAdminCobranca = document.getElementById('sameAsAdminCobranca');
 
   function replicateData(prefix) {
     document.getElementById(prefix + 'Nome').value = document.getElementById('adminNome').value;
     document.getElementById(prefix + 'Email').value = document.getElementById('adminEmail').value;
-    document.getElementById(prefix + 'Celular').value = document.getElementById('adminCelular').value;
-    // Sincroniza as máscaras após replicar os valores
-    if (masks[prefix + 'Celular']) masks[prefix + 'Celular'].updateValue();
+    const celVal = document.getElementById('adminCelular').value;
+    if (masks[prefix + 'Celular']) masks[prefix + 'Celular'].value = celVal;
+    else document.getElementById(prefix + 'Celular').value = celVal;
   }
 
   function toggleFields(prefix, isChecked) {
@@ -757,16 +543,15 @@
     if (isChecked) replicateData(prefix);
   }
 
-  sameAsAdminTecnico.addEventListener('change', (e) => toggleFields('tecnico', e.target.checked));
-  sameAsAdminCobranca.addEventListener('change', (e) => toggleFields('cobranca', e.target.checked));
+  document.getElementById('sameAsAdminTecnico').addEventListener('change', (e) => toggleFields('tecnico', e.target.checked));
+  document.getElementById('sameAsAdminCobranca').addEventListener('change', (e) => toggleFields('cobranca', e.target.checked));
   ['adminNome', 'adminEmail', 'adminCelular'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
-      if (sameAsAdminTecnico.checked) replicateData('tecnico');
-      if (sameAsAdminCobranca.checked) replicateData('cobranca');
+      if (document.getElementById('sameAsAdminTecnico').checked) replicateData('tecnico');
+      if (document.getElementById('sameAsAdminCobranca').checked) replicateData('cobranca');
     });
   });
 
-  // Envio e Conversão de Arquivo
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -779,22 +564,17 @@
   document.getElementById("cadastroForm").addEventListener("submit", async function(e){
     e.preventDefault();
     const btn = document.getElementById('btnSubmit');
-    btn.disabled = true;
-    btn.classList.add('loading');
+    btn.disabled = true; btn.classList.add('loading');
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     const fileInput = document.getElementById('arquivoAnexo');
     if (fileInput.files.length > 0) {
       try {
         const f = await fileToBase64(fileInput.files[0]);
-        data.arquivoConteudo = f.content;
-        data.arquivoNome = f.name;
-        data.arquivoTipo = f.type;
+        data.arquivoConteudo = f.content; data.arquivoNome = f.name; data.arquivoTipo = f.type;
       } catch (err) {
         showModal('Erro', 'Falha ao processar arquivo.', false);
-        btn.disabled = false;
-        btn.classList.remove('loading');
-        return;
+        btn.disabled = false; btn.classList.remove('loading'); return;
       }
     }
     if (data.dominioEmpresa) data.dominioEmpresa = normalizeUrl(data.dominioEmpresa);
@@ -802,24 +582,18 @@
     data.timestamp = new Date().toLocaleString('pt-BR');
     try {
       const r = await fetch(FLOW_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-      if(r.ok){
-        showModal('Sucesso!', 'Cadastro enviado com sucesso!');
-        this.reset();
-        
-        // Sincroniza todas as máscaras após o reset do formulário
-        Object.values(masks).forEach(mask => mask.updateValue());
-        
-        toggleFields('tecnico', false);
-        toggleFields('cobranca', false);
-        cepStatus.className = 'field-status';
-        cnpjStatus.className = 'field-status';
-      } else { throw new Error(`HTTP ${r.status}`); }
+      if(!r.ok) throw new Error(`HTTP ${r.status}`);
+      showModal('Sucesso!', 'Cadastro enviado com sucesso!');
+      this.reset();
+      Object.values(masks).forEach(m => m.value = '');
+      toggleFields('tecnico', false); toggleFields('cobranca', false);
+      document.getElementById('cnpjStatus').className = 'field-status';
+      document.getElementById('cepStatus').className = 'field-status';
     } catch (err) {
-      const debugMsg = `Status: ${err.status || 'N/A'} | Msg: ${err.message || 'Erro desconhecido'} | CNPJ: ${data.cnpjCpf || 'N/A'}`;
-      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro. Por favor, tire um print desta tela e envie para o suporte da CASE Tecnologia.', false, debugMsg);
+      const debugMsg = `Erro: ${err.message || 'Desconhecido'}\nCNPJ: ${data.cnpjCpf || 'N/A'}`;
+      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro. Tire um print desta tela e envie para o suporte.', false, debugMsg);
     } finally {
-      btn.disabled = false;
-      btn.classList.remove('loading');
+      btn.disabled = false; btn.classList.remove('loading');
     }
   });
 </script>
