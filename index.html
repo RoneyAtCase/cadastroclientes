@@ -377,7 +377,7 @@
 </div>
 
 <script>
-  // Construção segura da URL
+  // Construção segura da URL - Valor do sig corrigido conforme análise
   function getFlowUrl() {
     const baseUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke";
     const params = new URLSearchParams();
@@ -497,17 +497,46 @@
   document.getElementById('sameAsAdminTecnico').addEventListener('change', (e) => toggleFields('tecnico', e.target.checked));
   document.getElementById('sameAsAdminCobranca').addEventListener('change', (e) => toggleFields('cobranca', e.target.checked));
 
+  async function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = error => reject(error);
+    });
+  }
+
   document.getElementById("cadastroForm").addEventListener("submit", async function(e){
     e.preventDefault();
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true; btn.classList.add('loading');
     
+    const data = {};
     const formData = new FormData(this);
-    // Saneamento pontual da URL para neutralizar o escaping do Azure
+    formData.forEach((value, key) => { data[key] = value; });
+
+    const fileInput = document.getElementById('arquivoAnexo');
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      if (file.size > 20 * 1024 * 1024) {
+        showModal('Arquivo muito grande', 'O arquivo excede o limite de 20MB.', false);
+        btn.disabled = false; btn.classList.remove('loading');
+        return;
+      }
+      data.arquivoNome = file.name;
+      data.arquivoTipo = file.type;
+      data.arquivoConteudo = await toBase64(file);
+    }
+
+    // Correção definitiva para o HTML escaping do Azure
     const flowUrl = getFlowUrl().replace(/&amp;/g, "&");
 
     try {
-      const r = await fetch(flowUrl, { method: "POST", body: formData });
+      const r = await fetch(flowUrl, { 
+        method: "POST", 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
       showModal('Sucesso!', 'Cadastro enviado com sucesso!');
       this.reset();
