@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <title>FICHA CADASTRAL – CASE TECNOLOGIA</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Importando IMask v7.6.1 -->
   <script src="https://cdn.jsdelivr.net/npm/imask@7.6.1/dist/imask.min.js"></script>
   <style>
     :root {
@@ -16,12 +14,11 @@
       --white: #ffffff;
       --border-color: #cfd4da;
       --success-color: #28a745;
-      --warning-color: #ffc107;
       --error-color: #dc3545;
     }
 
     body {
-      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
       background: var(--bg-color);
       margin: 0;
       color: #333;
@@ -52,7 +49,6 @@
       margin: 0;
       font-size: 24px;
       font-weight: 700;
-      letter-spacing: 1px;
       color: var(--primary-color);
       text-transform: uppercase;
     }
@@ -60,18 +56,12 @@
     section {
       padding: 30px;
       border-bottom: 1px solid #eee;
-      transition: background 0.3s;
     }
-
-    section:nth-child(even) { background: #fcfdfe; }
 
     h2 {
       margin: 0 0 20px 0;
       font-size: 18px;
       color: var(--secondary-color);
-      display: flex;
-      align-items: center;
-      gap: 10px;
       border-left: 4px solid var(--secondary-color);
       padding-left: 12px;
     }
@@ -89,10 +79,6 @@
       position: relative;
     }
 
-    .field-group.full {
-      grid-column: 1 / -1;
-    }
-
     label {
       font-size: 13px;
       font-weight: 600;
@@ -106,7 +92,6 @@
       border-radius: 5px;
       font-size: 14px;
       box-sizing: border-box;
-      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     input:focus, select:focus {
@@ -114,8 +99,6 @@
       border-color: var(--secondary-color);
       box-shadow: 0 0 0 3px rgba(31, 122, 140, 0.1);
     }
-
-    input::placeholder { color: #adb5bd; }
 
     input:disabled, input[readonly] {
       background: #f0f0f0;
@@ -137,8 +120,6 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .field-hint { font-size: 12px; color: #999; margin-top: 4px; }
-    .field-error { font-size: 12px; color: var(--error-color); margin-top: 4px; display: none; }
-    .field-error.show { display: block; }
 
     .checkbox-container {
       display: flex;
@@ -149,7 +130,6 @@
       padding: 10px 15px;
       border-radius: 6px;
       cursor: pointer;
-      user-select: none;
       font-size: 14px;
       font-weight: 500;
       color: var(--secondary-color);
@@ -191,12 +171,9 @@
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
 
-    button:hover { background: #082d46; transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
+    button:hover { background: #082d46; }
     button:disabled { background: #ccc; cursor: not-allowed; }
 
     .spinner {
@@ -234,14 +211,7 @@
       padding: 40px;
       max-width: 500px;
       width: 90%;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       text-align: center;
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .modal-icon { font-size: 48px; margin-bottom: 20px; }
@@ -259,7 +229,7 @@
       padding: 12px;
       margin-bottom: 25px;
       text-align: left;
-      font-family: "Consolas", "Monaco", monospace;
+      font-family: monospace;
       font-size: 11px;
       color: #dc3545;
       word-break: break-all;
@@ -277,10 +247,7 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
     }
-
-    .modal-button:hover { background: #082d46; }
 
     @media (max-width: 600px) {
       .container { margin: 0; border-radius: 0; }
@@ -300,7 +267,6 @@
   </header>
 
   <form id="cadastroForm">
-    <!-- Dados da Empresa -->
     <section>
       <h2>Dados da Empresa</h2>
       <div class="grid">
@@ -308,7 +274,6 @@
           <label>CNPJ / CPF *</label>
           <input name="cnpjCpf" id="cnpjCpf" placeholder="00.000.000/0000-00" required>
           <span class="field-status" id="cnpjStatus"></span>
-          <div class="field-error" id="cnpjError"></div>
           <div class="field-hint">Digite o CNPJ para preencher automaticamente os dados da empresa</div>
         </div>
         <div class="field-group"><label>Razão Social *</label><input name="razaoSocial" id="razaoSocial" placeholder="Ex: Case Tecnologia Ltda" required></div>
@@ -320,7 +285,6 @@
       </div>
     </section>
 
-    <!-- Endereço -->
     <section>
       <h2>Endereço</h2>
       <div class="grid">
@@ -328,7 +292,6 @@
           <label>CEP *</label>
           <input name="cep" id="cep" placeholder="00000-000" required>
           <span class="field-status" id="cepStatus"></span>
-          <div class="field-error" id="cepError"></div>
           <div class="field-hint">Digite o CEP para preencher automaticamente o endereço</div>
         </div>
         <div class="field-group"><label>Endereço *</label><input name="endereco" id="endereco" placeholder="Rua, Avenida, etc." required></div>
@@ -355,8 +318,7 @@
       </div>
     </section>
 
-    <!-- Responsável Administrativo -->
-    <section id="secAdmin">
+    <section>
       <h2>Responsável Administrativo / Legal</h2>
       <div class="grid">
         <div class="field-group"><label>Nome Completo *</label><input name="adminNome" id="adminNome" placeholder="Nome do responsável" required></div>
@@ -369,33 +331,30 @@
       </div>
     </section>
 
-    <!-- Responsável Técnico -->
     <section>
       <h2>Responsável Técnico</h2>
       <label class="checkbox-container"><input type="checkbox" id="sameAsAdminTecnico"> Mesmo que o Responsável Administrativo</label>
-      <div class="grid" id="gridTecnico">
+      <div class="grid">
         <div class="field-group"><label>Nome Completo</label><input name="tecnicoNome" id="tecnicoNome" placeholder="Nome do técnico"></div>
         <div class="field-group"><label>E-mail</label><input name="tecnicoEmail" id="tecnicoEmail" type="email" placeholder="email@exemplo.com"></div>
         <div class="field-group"><label>Celular (WhatsApp)</label><input name="tecnicoCelular" id="tecnicoCelular" placeholder="(00) 00000-0000"></div>
       </div>
     </section>
 
-    <!-- Responsável pela Cobrança -->
     <section>
       <h2>Responsável pela Cobrança</h2>
       <label class="checkbox-container"><input type="checkbox" id="sameAsAdminCobranca"> Mesmo que o Responsável Administrativo</label>
-      <div class="grid" id="gridCobranca">
+      <div class="grid">
         <div class="field-group"><label>Nome Completo</label><input name="cobrancaNome" id="cobrancaNome" placeholder="Nome para cobrança"></div>
         <div class="field-group"><label>E-mail</label><input name="cobrancaEmail" id="cobrancaEmail" type="email" placeholder="email@exemplo.com"></div>
         <div class="field-group"><label>Celular (WhatsApp)</label><input name="cobrancaCelular" id="cobrancaCelular" placeholder="(00) 00000-0000"></div>
       </div>
     </section>
 
-    <!-- Documentos Societários -->
     <section>
       <h2>Documentos Societários</h2>
       <div class="grid">
-        <div class="field-group full">
+        <div class="field-group" style="grid-column: 1 / -1;">
           <label>Anexar Documento (Contrato Social) *</label>
           <input type="file" id="arquivoAnexo" accept=".pdf,.jpg,.jpeg,.png" required>
           <div class="field-hint">Formatos aceitos: PDF, JPG, PNG (Tamanho máximo permitido: 20MB)</div>
@@ -403,7 +362,6 @@
       </div>
     </section>
 
-    <!-- Consentimento LGPD -->
     <section>
       <h2>Consentimento LGPD</h2>
       <div class="lgpd-box">
@@ -419,22 +377,16 @@
 </div>
 
 <script>
-  // Construção da URL via URLSearchParams para evitar &amp;
-  
-
-function getFlowUrl() {
-  const baseUrl =
-    "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com" +
-    "/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b" +
-    "/triggers/manual/paths/invoke";
-
-  const amp = String.fromCharCode(38); // '&' sem passar pelo HTML
-  return baseUrl
-    + "?api-version=1"
-    + amp + "sp=" + encodeURIComponent("/triggers/manual/run")
-    + amp + "sv=1.0"
-    + amp + "sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
-}
+  // Construção segura da URL
+  function getFlowUrl() {
+    const baseUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke";
+    const params = new URLSearchParams();
+    params.set("api-version", "1");
+    params.set("sp", "/triggers/manual/run");
+    params.set("sv", "1.0");
+    params.set("sig", "dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU");
+    return baseUrl + "?" + params.toString();
+  }
 
   const masks = {};
   const maskOptions = {
@@ -471,7 +423,7 @@ function getFlowUrl() {
     titleEl.textContent = title;
     messageEl.textContent = message;
     if (debugInfo) {
-      debugEl.textContent = `[DIAGNÓSTICO TÉCNICO]\nData: ${new Date().toLocaleString('pt-BR')}\n${debugInfo}`;
+      debugEl.textContent = debugInfo;
       debugEl.classList.add('active');
     } else {
       debugEl.classList.remove('active');
@@ -480,15 +432,6 @@ function getFlowUrl() {
   }
 
   document.getElementById('modalButton').addEventListener('click', () => document.getElementById('modalOverlay').classList.remove('active'));
-
-  function normalizeUrl(url) {
-    if (!url) return '';
-    url = url.trim();
-    return url.match(/^https?:\/\//i) ? url : 'https://' + url;
-  }
-  document.getElementById('dominioEmpresa').addEventListener('blur', function() {
-    if (this.value) this.value = normalizeUrl(this.value).replace(/^https?:\/\//, '');
-  });
 
   document.getElementById('cep').addEventListener('blur', async function() {
     const val = this.value.replace(/\D/g, '');
@@ -553,28 +496,18 @@ function getFlowUrl() {
 
   document.getElementById('sameAsAdminTecnico').addEventListener('change', (e) => toggleFields('tecnico', e.target.checked));
   document.getElementById('sameAsAdminCobranca').addEventListener('change', (e) => toggleFields('cobranca', e.target.checked));
-  ['adminNome', 'adminEmail', 'adminCelular'].forEach(id => {
-    document.getElementById(id).addEventListener('input', () => {
-      if (document.getElementById('sameAsAdminTecnico').checked) replicateData('tecnico');
-      if (document.getElementById('sameAsAdminCobranca').checked) replicateData('cobranca');
-    });
-  });
 
   document.getElementById("cadastroForm").addEventListener("submit", async function(e){
     e.preventDefault();
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true; btn.classList.add('loading');
     
-    // Envio Original via FormData (como funcionava antes)
+    const formData = new FormData(this);
+    // Saneamento pontual da URL para neutralizar o escaping do Azure
+    const flowUrl = getFlowUrl().replace(/&amp;/g, "&");
 
-const formData = new FormData(this);
-const flowUrl = getFlowUrl().replace(/&amp;/g, "&");
-
-const r = await fetch(flowUrl, {
-  method: "POST",
-  body: formData
-});
-
+    try {
+      const r = await fetch(flowUrl, { method: "POST", body: formData });
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
       showModal('Sucesso!', 'Cadastro enviado com sucesso!');
       this.reset();
@@ -583,8 +516,7 @@ const r = await fetch(flowUrl, {
       document.getElementById('cnpjStatus').className = 'field-status';
       document.getElementById('cepStatus').className = 'field-status';
     } catch (err) {
-      const debugMsg = `Erro: ${err.message || 'Desconhecido'}`;
-      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro. Tire um print desta tela e envie para o suporte.', false, debugMsg);
+      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro.', false, `Detalhes: ${err.message}`);
     } finally {
       btn.disabled = false; btn.classList.remove('loading');
     }
