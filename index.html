@@ -398,7 +398,7 @@
         <div class="field-group full">
           <label>Anexar Documento (Contrato Social) *</label>
           <input type="file" id="arquivoAnexo" accept=".pdf,.jpg,.jpeg,.png" required>
-          <div class="field-hint">Formatos aceitos: PDF, JPG, PNG (Tamanho máximo permitido: 4MB)</div>
+          <div class="field-hint">Formatos aceitos: PDF, JPG, PNG (Tamanho máximo permitido: 20MB)</div>
         </div>
       </div>
     </section>
@@ -419,16 +419,16 @@
 </div>
 
 <script>
-  // URL construída via array para evitar codificação HTML automática de caracteres especiais
-  const FLOW_URL_PARTS = [
-    "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com",
-    "/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke",
-    "?api-version=1",
-    "&sp=%2Ftriggers%2Fmanual%2Frun",
-    "&sv=1.0",
-    "&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU"
-  ];
-  const FLOW_URL = FLOW_URL_PARTS.join('');
+  // Função para construir a URL sem usar o caractere & no código HTML
+  function buildFlowUrl() {
+    const baseUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke";
+    const params = new URLSearchParams();
+    params.set("api-version", "1");
+    params.set("sp", "/triggers/manual/run");
+    params.set("sv", "1.0");
+    params.set("sig", "dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU");
+    return baseUrl + "?" + params.toString();
+  }
 
   const masks = {};
   const maskOptions = {
@@ -573,8 +573,8 @@
     
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
-      if (file.size > 4 * 1024 * 1024) { // Limite de 4MB para evitar erro 502
-        showModal('Arquivo muito grande', 'O documento deve ter no máximo 4MB para garantir o envio.', false);
+      if (file.size > 20 * 1024 * 1024) { // Novo limite de 20MB
+        showModal('Arquivo muito grande', 'O documento deve ter no máximo 20MB.', false);
         btn.disabled = false; btn.classList.remove('loading'); return;
       }
       try {
@@ -591,7 +591,8 @@
     data.timestamp = new Date().toLocaleString('pt-BR');
 
     try {
-      const r = await fetch(FLOW_URL, { 
+      const flowUrl = buildFlowUrl();
+      const r = await fetch(flowUrl, { 
         method: "POST", 
         headers: { "Content-Type": "application/json" }, 
         body: JSON.stringify(data) 
