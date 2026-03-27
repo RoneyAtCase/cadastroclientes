@@ -533,18 +533,30 @@
       </div>
     </section>
 
+    <!-- Documentos Societários -->
+    <section>
+      <h2>Documentos Societários</h2>
+      <div class="grid">
+        <div class="field-group full">
+          <label>Anexar Documento (Contrato Social) *</label>
+          <input type="file" id="arquivoAnexo" accept=".pdf,.jpg,.jpeg,.png" required>
+          <div class="field-hint">Formatos aceitos: PDF, JPG, PNG (Tamanho máximo recomendado: 5MB)</div>
+        </div>
+      </div>
+    </section>
+
     <!-- Consentimento LGPD -->
     <section>
       <h2>Consentimento LGPD</h2>
       <div class="lgpd-box">
-        <p>Ao encaminhar a Ficha Cadastral preenchida, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais aqui constantes serão tratados, pela CASE Tecnologia, com a finalidade de elaboração dos Contratos e eventuais contatos necessários.</p>
+        <p>Ao encaminhar a Ficha Cadastral preenchida e os respectivos documentos societários, o Usuário/Cliente está ciente e de acordo, nos termos da Lei nº 13.709/18 (Lei Geral de Proteção de Dados), que os dados pessoais e documentos aqui constantes serão tratados, pela CASE Tecnologia, com a finalidade de elaboração dos Contratos e eventuais contatos necessários.</p>
         <p>A duração deste tratamento irá depender da vigência do Contrato entabulado entre as partes, bem como dos períodos previstos pela legislação brasileira, sendo que o Usuário/Cliente poderá solicitar, a qualquer momento, o acesso aos seus dados que estão sob poder da CASE Tecnologia, bem como a retificação, complementação, anonimização, bloqueio ou exclusão.</p>
         <p>Maiores informações acerca da política de proteção de dados podem ser encontradas na Política de Privacidade constante no site da CASE Tecnologia.</p>
       </div>
       
       <label class="lgpd-consent">
         <input type="checkbox" name="lgpdConsentimento" required>
-        <span>Declaro que li e concordo com o tratamento dos dados pessoais conforme descrito acima. *</span>
+        <span>Declaro que li e concordo com o tratamento dos dados pessoais e documentos societários conforme descrito acima. *</span>
       </label>
     </section>
 
@@ -769,7 +781,25 @@
     });
   });
 
-  // ========== ENVIO DO FORMULÁRIO ==========
+  // ========== ENVIO DO  // Função para Converter Arquivo em Base64
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        // Remove o prefixo (ex: data:application/pdf;base64,) para enviar apenas o conteúdo
+        const base64String = reader.result.split(',')[1];
+        resolve({
+          content: base64String,
+          name: file.name,
+          contentType: file.type
+        });
+      };
+      reader.onerror = error => reject(error);
+    });
+  }
+
+  // Envio do Formulário
   document.getElementById("cadastroForm").addEventListener("submit", async function(e){
     e.preventDefault();
     
@@ -780,6 +810,22 @@
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
     
+    // Processamento de Arquivo
+    const fileInput = document.getElementById('arquivoAnexo');
+    if (fileInput.files.length > 0) {
+      try {
+        const fileData = await fileToBase64(fileInput.files[0]);
+        data.arquivoConteudo = fileData.content;
+        data.arquivoNome = fileData.name;
+        data.arquivoTipo = fileData.contentType;
+      } catch (err) {
+        showModal('Erro no Arquivo', 'Não foi possível processar o arquivo selecionado.', false);
+        btn.disabled = false;
+        btn.classList.remove('loading');
+        return;
+      }
+    }
+
     // Normalizar URL antes de enviar
     if (data.dominioEmpresa) {
       data.dominioEmpresa = normalizeUrl(data.dominioEmpresa);
@@ -797,7 +843,7 @@
       });
 
       if(r.ok){
-        showModal('Sucesso!', 'Seu cadastro foi enviado com sucesso. Obrigado por escolher a CASE Tecnologia!');
+        showModal('Sucesso!', 'Seu cadastro e documentos foram enviados com sucesso. Obrigado por escolher a CASE Tecnologia!');
         this.reset();
         // Reset manual dos campos readonly
         toggleFields('tecnico', false);
@@ -815,8 +861,7 @@
       btn.disabled = false;
       btn.classList.remove('loading');
     }
-  });
-</script>
+  });/script>
 
 </body>
 </html>
