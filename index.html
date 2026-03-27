@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Importando IMask para máscaras de input -->
-  <script src="https://unpkg.com/imask"></script>
+  <!-- Importando IMask v7.6.1 (versão estável e completa para evitar erros de source map) -->
+  <script src="https://cdn.jsdelivr.net/npm/imask@7.6.1/dist/imask.min.js"></script>
   <style>
     :root {
       --primary-color: #0b3c5d;
@@ -21,7 +21,6 @@
     }
 
     body {
-      /* Removendo Roboto para evitar erros de bloqueio de fonte */
       font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       background: var(--bg-color);
       margin: 0;
@@ -311,8 +310,25 @@
       font-size: 14px;
       color: #666;
       line-height: 1.6;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
+
+    .modal-debug {
+      display: none;
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 4px;
+      padding: 12px;
+      margin-bottom: 25px;
+      text-align: left;
+      font-family: "Consolas", "Monaco", monospace;
+      font-size: 11px;
+      color: #dc3545;
+      word-break: break-all;
+      white-space: pre-wrap;
+    }
+
+    .modal-debug.active { display: block; }
 
     .modal-button {
       background: var(--primary-color);
@@ -571,6 +587,9 @@
 <script>
   const FLOW_URL = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
 
+  // Armazenamento das instâncias de máscara para sincronização posterior
+  const masks = {};
+
   // Máscaras de Input
   const maskOptions = {
     cnpjCpf: { mask: [{ mask: '000.000.000-00', type: 'CPF' }, { mask: '00.000.000/0000-00', type: 'CNPJ' }] },
@@ -580,14 +599,14 @@
     cel: { mask: '(00) 00000-0000' }
   };
 
-  IMask(document.getElementById('cnpjCpf'), maskOptions.cnpjCpf);
-  IMask(document.getElementById('cep'), maskOptions.cep);
-  IMask(document.getElementById('telefones'), maskOptions.phone);
-  IMask(document.getElementById('adminCpf'), maskOptions.cpf);
-  IMask(document.getElementById('adminCelular'), maskOptions.cel);
-  IMask(document.getElementById('adminTelefoneFixo'), maskOptions.phone);
-  IMask(document.getElementById('tecnicoCelular'), maskOptions.cel);
-  IMask(document.getElementById('cobrancaCelular'), maskOptions.cel);
+  masks.cnpjCpf = IMask(document.getElementById('cnpjCpf'), maskOptions.cnpjCpf);
+  masks.cep = IMask(document.getElementById('cep'), maskOptions.cep);
+  masks.telefones = IMask(document.getElementById('telefones'), maskOptions.phone);
+  masks.adminCpf = IMask(document.getElementById('adminCpf'), maskOptions.cpf);
+  masks.adminCelular = IMask(document.getElementById('adminCelular'), maskOptions.cel);
+  masks.adminTelefoneFixo = IMask(document.getElementById('adminTelefoneFixo'), maskOptions.phone);
+  masks.tecnicoCelular = IMask(document.getElementById('tecnicoCelular'), maskOptions.cel);
+  masks.cobrancaCelular = IMask(document.getElementById('cobrancaCelular'), maskOptions.cel);
 
   // Modal Personalizado
   const modalHTML = `
@@ -602,19 +621,39 @@
   `;
   document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-  function showModal(title, message, isSuccess = true) {
+  function showModal(title, message, isSuccess = true, debugInfo = null) {
     const overlay = document.getElementById('modalOverlay');
     const icon = overlay.querySelector('.modal-icon');
     const titleEl = overlay.querySelector('.modal-title');
     const messageEl = overlay.querySelector('.modal-message');
+    const debugEl = overlay.querySelector('.modal-debug') || document.createElement('div');
+    
+    if (!overlay.querySelector('.modal-debug')) {
+      debugEl.className = 'modal-debug';
+      messageEl.after(debugEl);
+    }
+
     icon.textContent = isSuccess ? '✓' : '✕';
     icon.className = 'modal-icon ' + (isSuccess ? 'success' : 'error');
     titleEl.textContent = title;
     messageEl.textContent = message;
+    
+    if (debugInfo) {
+      debugEl.textContent = `[DIAGNÓSTICO TÉCNICO]\nData: ${new Date().toLocaleString('pt-BR')}\nErro: ${debugInfo}`;
+      debugEl.classList.add('active');
+    } else {
+      debugEl.classList.remove('active');
+    }
+    
     overlay.classList.add('active');
   }
 
-  function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+  function closeModal() { 
+    const overlay = document.getElementById('modalOverlay');
+    overlay.classList.remove('active');
+    const debugEl = overlay.querySelector('.modal-debug');
+    if (debugEl) debugEl.classList.remove('active');
+  }
   document.getElementById('modalButton').addEventListener('click', closeModal);
 
   // Normalização de URL
@@ -681,11 +720,11 @@
       document.getElementById('atividadeEconomica').value = d.cnae_fiscal_descricao || '';
       if (!document.getElementById('cep').value) {
         document.getElementById('cep').value = d.cep || '';
+        masks.cep.updateValue(); // Sincroniza a máscara do CEP
         document.getElementById('endereco').value = d.logradouro || '';
         document.getElementById('bairro').value = d.bairro || '';
         document.getElementById('cidade').value = d.municipio || '';
         document.getElementById('estado').value = d.uf || '';
-        document.getElementById('cep').dispatchEvent(new Event('input'));
       }
       cnpjStatus.textContent = '✓';
       cnpjStatus.className = 'field-status success';
@@ -705,6 +744,8 @@
     document.getElementById(prefix + 'Nome').value = document.getElementById('adminNome').value;
     document.getElementById(prefix + 'Email').value = document.getElementById('adminEmail').value;
     document.getElementById(prefix + 'Celular').value = document.getElementById('adminCelular').value;
+    // Sincroniza as máscaras após replicar os valores
+    if (masks[prefix + 'Celular']) masks[prefix + 'Celular'].updateValue();
   }
 
   function toggleFields(prefix, isChecked) {
@@ -764,13 +805,18 @@
       if(r.ok){
         showModal('Sucesso!', 'Cadastro enviado com sucesso!');
         this.reset();
+        
+        // Sincroniza todas as máscaras após o reset do formulário
+        Object.values(masks).forEach(mask => mask.updateValue());
+        
         toggleFields('tecnico', false);
         toggleFields('cobranca', false);
         cepStatus.className = 'field-status';
         cnpjStatus.className = 'field-status';
-      } else { throw new Error(); }
+      } else { throw new Error(`HTTP ${r.status}`); }
     } catch (err) {
-      showModal('Erro', 'Houve um problema ao enviar. Tente novamente.', false);
+      const debugMsg = `Status: ${err.status || 'N/A'} | Msg: ${err.message || 'Erro desconhecido'} | CNPJ: ${data.cnpjCpf || 'N/A'}`;
+      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro. Por favor, tire um print desta tela e envie para o suporte da CASE Tecnologia.', false, debugMsg);
     } finally {
       btn.disabled = false;
       btn.classList.remove('loading');
