@@ -694,7 +694,8 @@
       cnpjStatus.className = 'field-status loading';
 
       try {
-        const response = await fetch(`https://api.cnpja.com/office/${cnpjValue}`);
+        // Utilizando a BrasilAPI para consulta de CNPJ (Gratuita e robusta)
+        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjValue}`);
         
         if (!response.ok) {
           throw new Error('CNPJ não encontrado');
@@ -702,13 +703,20 @@
 
         const data = await response.json();
 
-        // Preencher campos automaticamente
-        document.getElementById('razaoSocial').value = data.company?.name || '';
-        document.getElementById('nomeFantasia').value = data.company?.alias || '';
+        // Preencher campos automaticamente (BrasilAPI schema)
+        document.getElementById('razaoSocial').value = data.razao_social || '';
+        document.getElementById('nomeFantasia').value = data.nome_fantasia || data.razao_social || '';
+        document.getElementById('atividadeEconomica').value = data.cnae_fiscal_descricao || '';
         
-        // Tentar extrair atividade econômica se disponível
-        if (data.company?.mainActivity) {
-          document.getElementById('atividadeEconomica').value = data.company.mainActivity.text || '';
+        // Bônus: Se o endereço estiver vazio, preenchemos com os dados do CNPJ também
+        if (!document.getElementById('cep').value) {
+          document.getElementById('cep').value = data.cep || '';
+          document.getElementById('endereco').value = data.logradouro || '';
+          document.getElementById('bairro').value = data.bairro || '';
+          document.getElementById('cidade').value = data.municipio || '';
+          document.getElementById('estado').value = data.uf || '';
+          // Disparar evento de input para as máscaras de CEP se necessário
+          document.getElementById('cep').dispatchEvent(new Event('input'));
         }
 
         cnpjStatus.textContent = '✓';
@@ -716,7 +724,7 @@
       } catch (err) {
         cnpjStatus.textContent = '✕';
         cnpjStatus.className = 'field-status error';
-        cnpjError.textContent = 'CNPJ não encontrado ou inválido';
+        cnpjError.textContent = 'CNPJ não encontrado ou indisponível no momento';
         cnpjError.classList.add('show');
         console.error('Erro na consulta de CNPJ:', err);
       }
