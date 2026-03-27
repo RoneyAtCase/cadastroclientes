@@ -566,14 +566,15 @@ function getFlowUrl() {
     btn.disabled = true; btn.classList.add('loading');
     
     // Envio Original via FormData (como funcionava antes)
-    const formData = new FormData(this);
-    const flowUrl = getFlowUrl();
 
-    try {
-      const r = await fetch(flowUrl, { 
-        method: "POST", 
-        body: formData // Envio binário robusto
-      });
+const formData = new FormData(this);
+const flowUrl = getFlowUrl().replace(/&amp;/g, "&");
+
+const r = await fetch(flowUrl, {
+  method: "POST",
+  body: formData
+});
+
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
       showModal('Sucesso!', 'Cadastro enviado com sucesso!');
       this.reset();
