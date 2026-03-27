@@ -420,15 +420,21 @@
 
 <script>
   // Construção da URL via URLSearchParams para evitar &amp;
-  function getFlowUrl() {
-    const baseUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke";
-    const params = new URLSearchParams();
-    params.set("api-version", "1");
-    params.set("sp", "/triggers/manual/run");
-    params.set("sv", "1.0");
-    params.set("sig", "dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU");
-    return baseUrl + "?" + params.toString();
-  }
+  
+
+function getFlowUrl() {
+  const baseUrl =
+    "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com" +
+    "/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b" +
+    "/triggers/manual/paths/invoke";
+
+  const amp = String.fromCharCode(38); // '&' sem passar pelo HTML
+  return baseUrl
+    + "?api-version=1"
+    + amp + "sp=" + encodeURIComponent("/triggers/manual/run")
+    + amp + "sv=1.0"
+    + amp + "sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
+}
 
   const masks = {};
   const maskOptions = {
