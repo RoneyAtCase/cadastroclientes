@@ -21,7 +21,8 @@
     }
 
     body {
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      /* Removendo Roboto para evitar erros de bloqueio de fonte */
+      font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
       background: var(--bg-color);
       margin: 0;
       color: #333;
@@ -350,7 +351,6 @@
     <section>
       <h2>Dados da Empresa</h2>
       <div class="grid">
-        <!-- CNPJ é o primeiro campo para consulta automática -->
         <div class="field-group">
           <label>CNPJ / CPF *</label>
           <input name="cnpjCpf" id="cnpjCpf" placeholder="00.000.000/0000-00" required>
@@ -395,7 +395,6 @@
     <section>
       <h2>Endereço</h2>
       <div class="grid">
-        <!-- CEP é o primeiro campo para consulta automática -->
         <div class="field-group">
           <label>CEP *</label>
           <input name="cep" id="cep" placeholder="00000-000" required>
@@ -572,14 +571,9 @@
 <script>
   const FLOW_URL = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
 
-  // Configuração de Máscaras
+  // Máscaras de Input
   const maskOptions = {
-    cnpjCpf: {
-      mask: [
-        { mask: '000.000.000-00', type: 'CPF' },
-        { mask: '00.000.000/0000-00', type: 'CNPJ' }
-      ]
-    },
+    cnpjCpf: { mask: [{ mask: '000.000.000-00', type: 'CPF' }, { mask: '00.000.000/0000-00', type: 'CNPJ' }] },
     cpf: { mask: '000.000.000-00' },
     cep: { mask: '00000-000' },
     phone: { mask: '(00) 0000-0000' },
@@ -595,7 +589,7 @@
   IMask(document.getElementById('tecnicoCelular'), maskOptions.cel);
   IMask(document.getElementById('cobrancaCelular'), maskOptions.cel);
 
-  // Modal HTML (inserido dinamicamente)
+  // Modal Personalizado
   const modalHTML = `
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal-content">
@@ -608,13 +602,11 @@
   `;
   document.body.insertAdjacentHTML('beforeend', modalHTML);
 
-  // Funções de Modal
   function showModal(title, message, isSuccess = true) {
     const overlay = document.getElementById('modalOverlay');
     const icon = overlay.querySelector('.modal-icon');
     const titleEl = overlay.querySelector('.modal-title');
     const messageEl = overlay.querySelector('.modal-message');
-
     icon.textContent = isSuccess ? '✓' : '✕';
     icon.className = 'modal-icon ' + (isSuccess ? 'success' : 'error');
     titleEl.textContent = title;
@@ -622,158 +614,110 @@
     overlay.classList.add('active');
   }
 
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('active');
-  }
-
+  function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
   document.getElementById('modalButton').addEventListener('click', closeModal);
 
-  // Função para Normalizar URL
+  // Normalização de URL
   function normalizeUrl(url) {
     if (!url) return '';
     url = url.trim();
-    if (!url.match(/^https?:\/\//i)) {
-      url = 'https://' + url;
-    }
+    if (!url.match(/^https?:\/\//i)) url = 'https://' + url;
     return url;
   }
-
-  // Validar URL ao sair do campo
   document.getElementById('dominioEmpresa').addEventListener('blur', function() {
-    if (this.value) {
-      this.value = normalizeUrl(this.value).replace(/^https?:\/\//, '');
-    }
+    if (this.value) this.value = normalizeUrl(this.value).replace(/^https?:\/\//, '');
   });
 
-  // ========== CONSULTA DE CEP (ViaCEP) ==========
+  // Consulta CEP
   const cepInput = document.getElementById('cep');
   const cepStatus = document.getElementById('cepStatus');
   const cepError = document.getElementById('cepError');
 
   cepInput.addEventListener('blur', async function() {
     const cepValue = this.value.replace(/\D/g, '');
-    
-    if (cepValue.length !== 8) {
-      cepStatus.className = 'field-status';
-      cepError.textContent = 'CEP deve ter 8 dígitos';
-      cepError.classList.add('show');
-      return;
-    }
-
+    if (cepValue.length !== 8) return;
     cepError.classList.remove('show');
     cepStatus.textContent = '⏳';
     cepStatus.className = 'field-status loading';
-
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
-      const data = await response.json();
-
-      if (data.erro) {
+      const r = await fetch(`https://viacep.com.br/ws/${cepValue}/json/`);
+      const d = await r.json();
+      if (d.erro) {
         cepStatus.textContent = '✕';
         cepStatus.className = 'field-status error';
         cepError.textContent = 'CEP não encontrado';
         cepError.classList.add('show');
       } else {
-        // Preencher campos automaticamente
-        document.getElementById('endereco').value = data.logradouro;
-        document.getElementById('bairro').value = data.bairro;
-        document.getElementById('cidade').value = data.localidade;
-        document.getElementById('estado').value = data.uf;
-
+        document.getElementById('endereco').value = d.logradouro;
+        document.getElementById('bairro').value = d.bairro;
+        document.getElementById('cidade').value = d.localidade;
+        document.getElementById('estado').value = d.uf;
         cepStatus.textContent = '✓';
         cepStatus.className = 'field-status success';
-        cepError.classList.remove('show');
       }
-    } catch (err) {
+    } catch (e) {
       cepStatus.textContent = '✕';
       cepStatus.className = 'field-status error';
-      cepError.textContent = 'Erro ao consultar CEP';
-      cepError.classList.add('show');
-      console.error('Erro na consulta de CEP:', err);
     }
   });
 
-  // ========== CONSULTA DE CNPJ (BrasilAPI) ==========
+  // Consulta CNPJ
   const cnpjInput = document.getElementById('cnpjCpf');
   const cnpjStatus = document.getElementById('cnpjStatus');
   const cnpjError = document.getElementById('cnpjError');
 
   cnpjInput.addEventListener('blur', async function() {
     const cnpjValue = this.value.replace(/\D/g, '');
-    
-    // Verificar se é CNPJ (14 dígitos) ou CPF (11 dígitos)
-    if (cnpjValue.length === 14) {
-      cnpjError.classList.remove('show');
-      cnpjStatus.textContent = '⏳';
-      cnpjStatus.className = 'field-status loading';
-
-      try {
-        // Utilizando a BrasilAPI para consulta de CNPJ (Gratuita e robusta)
-        const response = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjValue}`);
-        
-        if (!response.ok) {
-          throw new Error('CNPJ não encontrado');
-        }
-
-        const data = await response.json();
-
-        // Preencher campos automaticamente (BrasilAPI schema)
-        document.getElementById('razaoSocial').value = data.razao_social || '';
-        document.getElementById('nomeFantasia').value = data.nome_fantasia || data.razao_social || '';
-        document.getElementById('atividadeEconomica').value = data.cnae_fiscal_descricao || '';
-        
-        // Bônus: Se o endereço estiver vazio, preenchemos com os dados do CNPJ também
-        if (!document.getElementById('cep').value) {
-          document.getElementById('cep').value = data.cep || '';
-          document.getElementById('endereco').value = data.logradouro || '';
-          document.getElementById('bairro').value = data.bairro || '';
-          document.getElementById('cidade').value = data.municipio || '';
-          document.getElementById('estado').value = data.uf || '';
-          // Disparar evento de input para as máscaras de CEP se necessário
-          document.getElementById('cep').dispatchEvent(new Event('input'));
-        }
-
-        cnpjStatus.textContent = '✓';
-        cnpjStatus.className = 'field-status success';
-      } catch (err) {
-        cnpjStatus.textContent = '✕';
-        cnpjStatus.className = 'field-status error';
-        cnpjError.textContent = 'CNPJ não encontrado ou indisponível no momento';
-        cnpjError.classList.add('show');
-        console.error('Erro na consulta de CNPJ:', err);
+    if (cnpjValue.length !== 14) return;
+    cnpjError.classList.remove('show');
+    cnpjStatus.textContent = '⏳';
+    cnpjStatus.className = 'field-status loading';
+    try {
+      const r = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpjValue}`);
+      if (!r.ok) throw new Error();
+      const d = await r.json();
+      document.getElementById('razaoSocial').value = d.razao_social || '';
+      document.getElementById('nomeFantasia').value = d.nome_fantasia || d.razao_social || '';
+      document.getElementById('atividadeEconomica').value = d.cnae_fiscal_descricao || '';
+      if (!document.getElementById('cep').value) {
+        document.getElementById('cep').value = d.cep || '';
+        document.getElementById('endereco').value = d.logradouro || '';
+        document.getElementById('bairro').value = d.bairro || '';
+        document.getElementById('cidade').value = d.municipio || '';
+        document.getElementById('estado').value = d.uf || '';
+        document.getElementById('cep').dispatchEvent(new Event('input'));
       }
-    } else if (cnpjValue.length === 11) {
-      // CPF - apenas validar formato
-      cnpjStatus.textContent = '';
-      cnpjStatus.className = 'field-status';
-      cnpjError.classList.remove('show');
+      cnpjStatus.textContent = '✓';
+      cnpjStatus.className = 'field-status success';
+    } catch (e) {
+      cnpjStatus.textContent = '✕';
+      cnpjStatus.className = 'field-status error';
+      cnpjError.textContent = 'CNPJ não encontrado';
+      cnpjError.classList.add('show');
     }
   });
 
-  // ========== LÓGICA DE REPLICAÇÃO DE DADOS ==========
+  // Replicação de Dados
   const sameAsAdminTecnico = document.getElementById('sameAsAdminTecnico');
   const sameAsAdminCobranca = document.getElementById('sameAsAdminCobranca');
 
-  function replicateData(targetPrefix) {
-    document.getElementById(targetPrefix + 'Nome').value = document.getElementById('adminNome').value;
-    document.getElementById(targetPrefix + 'Email').value = document.getElementById('adminEmail').value;
-    document.getElementById(targetPrefix + 'Celular').value = document.getElementById('adminCelular').value;
+  function replicateData(prefix) {
+    document.getElementById(prefix + 'Nome').value = document.getElementById('adminNome').value;
+    document.getElementById(prefix + 'Email').value = document.getElementById('adminEmail').value;
+    document.getElementById(prefix + 'Celular').value = document.getElementById('adminCelular').value;
   }
 
-  function toggleFields(targetPrefix, isChecked) {
-    const fields = [targetPrefix + 'Nome', targetPrefix + 'Email', targetPrefix + 'Celular'];
-    fields.forEach(id => {
-      const el = document.getElementById(id);
+  function toggleFields(prefix, isChecked) {
+    ['Nome', 'Email', 'Celular'].forEach(f => {
+      const el = document.getElementById(prefix + f);
       el.readOnly = isChecked;
       el.style.background = isChecked ? '#f0f0f0' : '#fff';
     });
-    if (isChecked) replicateData(targetPrefix);
+    if (isChecked) replicateData(prefix);
   }
 
   sameAsAdminTecnico.addEventListener('change', (e) => toggleFields('tecnico', e.target.checked));
   sameAsAdminCobranca.addEventListener('change', (e) => toggleFields('cobranca', e.target.checked));
-
-  // Atualizar em tempo real se o admin mudar e os checkboxes estiverem marcados
   ['adminNome', 'adminEmail', 'adminCelular'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
       if (sameAsAdminTecnico.checked) replicateData('tecnico');
@@ -781,87 +725,57 @@
     });
   });
 
-  // ========== ENVIO DO  // Função para Converter Arquivo em Base64
+  // Envio e Conversão de Arquivo
   function fileToBase64(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        // Remove o prefixo (ex: data:application/pdf;base64,) para enviar apenas o conteúdo
-        const base64String = reader.result.split(',')[1];
-        resolve({
-          content: base64String,
-          name: file.name,
-          contentType: file.type
-        });
-      };
-      reader.onerror = error => reject(error);
+      reader.onload = () => resolve({ content: reader.result.split(',')[1], name: file.name, type: file.type });
+      reader.onerror = e => reject(e);
     });
   }
 
-  // Envio do Formulário
   document.getElementById("cadastroForm").addEventListener("submit", async function(e){
     e.preventDefault();
-    
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true;
     btn.classList.add('loading');
-
     const formData = new FormData(this);
     const data = Object.fromEntries(formData.entries());
-    
-    // Processamento de Arquivo
     const fileInput = document.getElementById('arquivoAnexo');
     if (fileInput.files.length > 0) {
       try {
-        const fileData = await fileToBase64(fileInput.files[0]);
-        data.arquivoConteudo = fileData.content;
-        data.arquivoNome = fileData.name;
-        data.arquivoTipo = fileData.contentType;
+        const f = await fileToBase64(fileInput.files[0]);
+        data.arquivoConteudo = f.content;
+        data.arquivoNome = f.name;
+        data.arquivoTipo = f.type;
       } catch (err) {
-        showModal('Erro no Arquivo', 'Não foi possível processar o arquivo selecionado.', false);
+        showModal('Erro', 'Falha ao processar arquivo.', false);
         btn.disabled = false;
         btn.classList.remove('loading');
         return;
       }
     }
-
-    // Normalizar URL antes de enviar
-    if (data.dominioEmpresa) {
-      data.dominioEmpresa = normalizeUrl(data.dominioEmpresa);
-    }
-    
-    // Tratamento de Checkbox LGPD e Metadados
+    if (data.dominioEmpresa) data.dominioEmpresa = normalizeUrl(data.dominioEmpresa);
     data.lgpdConsentimento = formData.get('lgpdConsentimento') === 'on';
     data.timestamp = new Date().toLocaleString('pt-BR');
-
     try {
-      const r = await fetch(FLOW_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      });
-
+      const r = await fetch(FLOW_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
       if(r.ok){
-        showModal('Sucesso!', 'Seu cadastro e documentos foram enviados com sucesso. Obrigado por escolher a CASE Tecnologia!');
+        showModal('Sucesso!', 'Cadastro enviado com sucesso!');
         this.reset();
-        // Reset manual dos campos readonly
         toggleFields('tecnico', false);
         toggleFields('cobranca', false);
-        // Limpar status dos campos
         cepStatus.className = 'field-status';
         cnpjStatus.className = 'field-status';
-      } else {
-        throw new Error("Erro no servidor");
-      }
+      } else { throw new Error(); }
     } catch (err) {
-      showModal('Erro ao Enviar', 'Houve um problema ao enviar seus dados. Por favor, tente novamente mais tarde.', false);
-      console.error(err);
+      showModal('Erro', 'Houve um problema ao enviar. Tente novamente.', false);
     } finally {
       btn.disabled = false;
       btn.classList.remove('loading');
     }
-  });/script>
-
+  });
+</script>
 </body>
 </html>
