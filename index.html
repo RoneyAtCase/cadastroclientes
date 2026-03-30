@@ -484,8 +484,19 @@
       toggleFields('tecnico', false); toggleFields('cobranca', false);
       document.getElementById('cnpjStatus').className = 'field-status';
       document.getElementById('cepStatus').className = 'field-status';
-    } catch (err) {
-      showModal('Erro ao Enviar', 'Houve um problema ao processar seu cadastro. Verifique sua conexão e tente novamente.');
+      
+   
+} catch (err) {
+  console.error('Erro real do envio:', err);
+
+  showModal(
+    'Erro ao Enviar',
+    `Erro real: ${err.message}`
+  );
+}
+
+
+      
     } finally {
       btn.disabled = false; btn.classList.remove('loading');
     }
