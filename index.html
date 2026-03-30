@@ -467,9 +467,12 @@
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true; btn.classList.add('loading');
     
-    const formData = new FormData(this);
-    const flowUrl = "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b/triggers/manual/paths/invoke?api-version=1&sp=/triggers/manual/run&sv=1.0&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
-
+    const flowUrl =
+  "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com" +
+  "/powerautomate/automations/direct/workflows/da34ad5513864e2e967c2432d709228b" +
+  "/triggers/manual/paths/invoke?api-version=1&sp=/triggers/manual/run&sv=1.0" +
+  "&sig=dqDZSc1LHLuF_BChKAonST8RlKkbknk6-0EobCjtNJU";
+    
     try {
       const r = await fetch(flowUrl, { method: "POST", body: formData });
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
