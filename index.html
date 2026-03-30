@@ -466,6 +466,8 @@
     e.preventDefault();
     const btn = document.getElementById('btnSubmit');
     btn.disabled = true; btn.classList.add('loading');
+   
+  const formData = new FormData(this);
     
     const flowUrl =
   "https://defaultd2d4a6ef864d4fff8bac762a38f9fe.e5.environment.api.powerplatform.com" +
